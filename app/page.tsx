@@ -1,4 +1,5 @@
 import App from "@/components/App";
+import Footer from "@/components/Footer";
 import { env } from "@/lib/env";
 import { Metadata } from "next";
 
@@ -33,5 +34,10 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function Home() {
-  return <App />;
+  return (
+    <>
+      <App />
+      <Footer />
+    </>
+  );
 }

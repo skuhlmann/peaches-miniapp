@@ -6,8 +6,9 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Farcaster Mini-app Starter",
-  description: "A starter for Farcaster mini-apps",
+  title: "PEACH TYCOON",
+  description:
+    "A seasonal NFT farming game where players can earn and/or sell boxes of real peaches.",
 };
 
 export default function RootLayout({
@@ -17,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} bg-brand-black min-h-screen`}>
         <Providers>{children}</Providers>
       </body>
     </html>
