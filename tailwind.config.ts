@@ -11,6 +11,7 @@ const config: Config = {
       fontFamily: {
         sans: ['"Work Sans"', "sans-serif"],
         heading: ["auster", "serif"],
+        headline: ["helsinki", "sans-serif"],
       },
       colors: {
         brand: {

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 export default function Home() {
-  const { signIn, isLoading, isSignedIn, user } = useSignIn({
+  const { isSignedIn, user } = useSignIn({
     autoSignIn: false,
   });
   const [testResult, setTestResult] = useState<string>("");
@@ -33,52 +33,70 @@ export default function Home() {
 
   return (
     <div className="bg-brand-black text-brand-white flex min-h-screen flex-col items-center justify-center p-4">
-      <div className="text-center space-y-4">
-        <h1 className="text-4xl font-bold font-heading">Welcome</h1>
-        <p className="text-lg text-brand-blue">
-          {isSignedIn ? "You are signed in!" : "Sign in to get started"}
-        </p>
-
-        {!isSignedIn ? (
-          <button
-            onClick={signIn}
-            disabled={isLoading}
-            className="px-6 py-3 bg-brand-orange text-brand-white font-semibold rounded-lg shadow-md hover:bg-brand-red focus:outline-none focus:ring-2 focus:ring-brand-orange focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
-          >
-            {isLoading ? "Signing in..." : "Sign in"}
-          </button>
-        ) : (
-          <div className="space-y-4">
-            {user && (
-              <div className="flex flex-col items-center space-y-2">
-                <Image
-                  src={user.pfp_url}
-                  alt="Profile"
-                  className="w-20 h-20 rounded-full"
-                  width={80}
-                  height={80}
-                />
-                <div className="text-center">
-                  <p className="font-semibold">{user.display_name}</p>
-                  <p className="text-sm text-brand-blue">@{user.username}</p>
-                </div>
-              </div>
-            )}
-            <button
-              onClick={testAuth}
-              className="px-6 py-3 bg-brand-green text-brand-white font-semibold rounded-lg shadow-md hover:bg-brand-red focus:outline-none focus:ring-2 focus:ring-brand-green focus:ring-opacity-50 transition-colors duration-200"
-            >
-              Test Authentication
-            </button>
-
-            {testResult && (
-              <div className="mt-4 p-4 rounded-lg bg-brand-gray text-brand-white text-sm">
-                {testResult}
-              </div>
-            )}
-          </div>
-        )}
-      </div>
+      <section className="flex flex-col md:flex-row items-center justify-center gap-8 w-full max-w-4xl">
+        {/* Step 1 */}
+        <div className="flex flex-col items-center md:flex-row md:items-center gap-4">
+          <Image
+            src="/images/tree-3.png"
+            alt="Tree"
+            width={80}
+            height={80}
+            className="mb-2 md:mb-0"
+          />
+          <span className="text-5xl md:text-6xl font-extrabold leading-tight font-headline">
+            YOU
+            <br />
+            BUY
+            <br />
+            TREE.
+          </span>
+        </div>
+        {/* Arrow 1 */}
+        <div className="hidden md:flex items-center">
+          <Image src="/images/arrow_1.png" alt="arrow" width={60} height={60} />
+        </div>
+        {/* Step 2 */}
+        <div className="flex flex-col items-center md:flex-row md:items-center gap-4">
+          <Image
+            src="/images/home_peach.png"
+            alt="Peach"
+            width={80}
+            height={80}
+            className="mb-2 md:mb-0"
+          />
+          <span className="text-5xl md:text-6xl font-extrabold leading-tight font-headline">
+            TREE
+            <br />
+            GROWS
+            <br />
+            PEACH.
+          </span>
+        </div>
+        {/* Arrow 2 */}
+        <div className="hidden md:flex items-center">
+          <Image src="/images/arrow_1.png" alt="arrow" width={60} height={60} />
+        </div>
+        {/* Step 3 */}
+        <div className="flex flex-col items-center md:flex-row md:items-center gap-4">
+          <Image
+            src="/images/home_peach_bite.png"
+            alt="Peach Bite"
+            width={80}
+            height={80}
+            className="mb-2 md:mb-0"
+          />
+          <span className="text-5xl md:text-6xl font-extrabold leading-tight font-headline">
+            YOU
+            <br />
+            EAT<span className="align-super text-2xl">*</span>
+            <br />
+            PEACH.
+          </span>
+          <span className="text-xs mt-2 text-brand-white/70">
+            *or sell to the marketplace for others to enjoy.
+          </span>
+        </div>
+      </section>
     </div>
   );
 }
