@@ -125,6 +125,13 @@ export default function Home() {
       >
         GET TREES
       </Link>
+
+      <Link
+        href="/about"
+        className="my-3 text-lg font-headline text-brand-orange hover:bg-red-500/10 transition-colors duration-200 underline"
+      >
+        HOW DOES THIS WORK?
+      </Link>
     </div>
   );
 }

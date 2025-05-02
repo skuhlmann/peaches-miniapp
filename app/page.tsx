@@ -7,25 +7,26 @@ const appUrl = env.NEXT_PUBLIC_URL;
 
 const frame = {
   version: "next",
-  imageUrl: `${appUrl}/images/feed.png`,
+  imageUrl: `${appUrl}/preview.png`,
   button: {
     title: "Launch App",
     action: {
       type: "launch_frame",
-      name: "Mini-app Starter",
+      name: "Peach Tycoon",
       url: appUrl,
-      splashImageUrl: `${appUrl}/images/splash.png`,
-      splashBackgroundColor: "#ffffff",
+      splashImageUrl: `${appUrl}/logo.png`,
+      splashBackgroundColor: "#0E1418",
     },
   },
 };
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Mini-app Starter",
+    title: "Peach Tycoon",
     openGraph: {
-      title: "Mini-app Starter",
-      description: "A starter for Farcastermini-apps",
+      title: "Peach Tycoon",
+      description:
+        "A seasonal NFT farming game where players can earn and/or sell boxes of real peaches.",
     },
     other: {
       "fc:frame": JSON.stringify(frame),
