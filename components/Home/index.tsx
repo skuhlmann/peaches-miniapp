@@ -6,12 +6,12 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="bg-brand-black text-brand-white flex min-h-screen flex-col items-center justify-center p-4">
-      <section className="flex flex-col md:flex-row items-center justify-center gap-5 w-full max-w-4xl">
+      <section className="flex flex-col md:flex-row items-center justify-center gap-2 w-full max-w-4xl">
         {/* Step 1 */}
-        <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-col items-center gap-2">
           <div className="flex flex-row items-center justify-around w-full gap-4 flex-wrap">
             <div className="flex flex-col items-center md:flex-row md:items-center gap-4">
-              <span className="text-5xl md:text-6xl font-extrabold leading-tight font-headline">
+              <span className="text-5xl md:text-6xl font-extrabold leading-none font-headline">
                 YOU
                 <br />
                 BUY
@@ -22,8 +22,8 @@ export default function Home() {
             <Image
               src="/images/tree-3.png"
               alt="Tree"
-              width={140}
-              height={140}
+              width={125}
+              height={125}
               className="mb-2 md:mb-0"
             />
           </div>
@@ -46,7 +46,7 @@ export default function Home() {
         <div className="flex flex-col items-center gap-4">
           <div className="flex flex-row items-center justify-around w-full gap-4 flex-wrap">
             <div className="flex flex-col items-center md:flex-row md:items-center gap-4">
-              <span className="text-5xl md:text-6xl font-extrabold leading-tight font-headline">
+              <span className="text-5xl md:text-6xl font-extrabold leading-none font-headline">
                 TREE
                 <br />
                 GROWS
@@ -78,10 +78,10 @@ export default function Home() {
         </div>
 
         {/* Step 3 */}
-        <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-col items-center gap-2">
           <div className="flex flex-row items-center justify-around w-full gap-1 flex-wrap">
             <div className="flex flex-col items-center md:flex-row md:items-center gap-4">
-              <span className="text-5xl md:text-6xl font-extrabold leading-tight font-headline">
+              <span className="text-5xl md:text-6xl font-extrabold leading-none font-headline">
                 YOU
                 <br />
                 EAT<span className="align-super text-2xl">*</span>

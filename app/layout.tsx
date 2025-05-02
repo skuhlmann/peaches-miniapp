@@ -25,7 +25,7 @@ export default function RootLayout({
       >
         <Providers>
           <Header />
-          <main className="flex-1 pt-24 pb-16">{children}</main>
+          <main className="flex-1 pt-20 pb-16">{children}</main>
           <Footer />
         </Providers>
       </body>
