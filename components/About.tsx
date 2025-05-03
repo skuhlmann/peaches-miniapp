@@ -72,7 +72,7 @@ export default function About() {
                 additional peach boxes.
               </p>
               <Link
-                href="/buy-trees"
+                href="/orchard"
                 className="my-2 px-8 py-2 text-base font-headline text-brand-orange bg-brand-green/20 border-2 border-brand-green rounded-full hover:bg-orange-500/10 transition-colors duration-200"
               >
                 GET TREES
@@ -215,6 +215,13 @@ export default function About() {
       >
         Learn more about PΞACH Tycoon on our Website
       </a>
+
+      <Link
+        href="/orchard"
+        className="my-6 px-12 py-6 text-2xl font-headline text-brand-red bg-brand-black border-2 border-brand-orange rounded-full hover:bg-orange-500/10 transition-colors duration-200"
+      >
+        GET TREES
+      </Link>
     </div>
   );
 }

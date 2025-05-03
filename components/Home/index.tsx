@@ -120,7 +120,7 @@ export default function Home() {
       <p className="text-xs text-brand-orange">Buy now, munch later.</p>
 
       <Link
-        href="/buy-trees"
+        href="/orchard"
         className="my-6 px-12 py-6 text-2xl font-headline text-brand-red bg-brand-black border-2 border-brand-orange rounded-full hover:bg-orange-500/10 transition-colors duration-200"
       >
         GET TREES
