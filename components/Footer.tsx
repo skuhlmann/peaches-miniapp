@@ -47,7 +47,7 @@ export default function Footer() {
               href="/about"
               className="text-brand-white hover:underline font-heading"
             >
-              How?
+              NFTs for Peaches?
             </Link>
           </li>
         </ul>
