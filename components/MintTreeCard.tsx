@@ -1,16 +1,18 @@
 import { useState } from "react";
 import TransactionDrawer from "./TransactionDrawer";
-import { useWriteContract, useWaitForTransactionReceipt } from "wagmi";
+import { useWriteContract, useAccount } from "wagmi";
 import TreeERC721 from "../lib/abis/TreeERC721.json";
+import BalanceCheck from "./BalanceCheck";
 import {
   CRITTER_COUNT_PLUS_ONE,
   TREE_NFT_CONTRACT_ADDRESS,
   NFT_MINT_PRICE,
   TREE_NFT_MINT_PRICE_ERC20,
   TREE_NFT_MINT_DISCOUNT_PERC,
+  TARGET_CHAIN_ID,
+  USDC_CONTRACT_ADDRESS,
+  TREE_ERC20_PAYMENT_TOKEN,
 } from "@/lib/constants";
-
-const DISCOUNT_PERCENTAGE = 0.2; // 20% discount
 
 const getCritterId = () => {
   return Math.floor(Math.random() * CRITTER_COUNT_PLUS_ONE);
@@ -35,6 +37,8 @@ export default function MintTreeCard({
 }) {
   const [currency, setCurrency] = useState<"ETH" | "USDC">("ETH");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  const { isConnected, chainId, address } = useAccount();
 
   const { data: hash, error, isPending, writeContract } = useWriteContract();
 
@@ -85,9 +89,21 @@ export default function MintTreeCard({
     setIsDrawerOpen(true);
   };
 
+  const invalidConnection = !isConnected || TARGET_CHAIN_ID !== chainId;
+  const isDisabled = isPending || invalidConnection;
+
+  const getPrice = () => {
+    const basePrice =
+      currency === "ETH" ? NFT_MINT_PRICE : TREE_NFT_MINT_PRICE_ERC20;
+    return hasDiscount
+      ? basePrice -
+          (basePrice * BigInt(TREE_NFT_MINT_DISCOUNT_PERC)) / BigInt(100)
+      : basePrice;
+  };
+
   return (
     <>
-      <div className="bg-brand-green/20 rounded-2xl p-6 flex flex-col items-center shadow-lg max-w-md w-full">
+      <div className="bg-brand-gray rounded-2xl p-6 flex flex-col items-center shadow-lg max-w-md w-full">
         <img
           src={`/images/${tree.img}`}
           alt={tree.name}
@@ -134,13 +150,31 @@ export default function MintTreeCard({
             </span>
           </div>
         </div>
-        <button
-          className="w-full py-3 rounded-full text-brand-black font-headline bg-brand-green hover:text-brand-orange transition-colors text-lg mt-auto"
-          onClick={handleMint}
-          disabled={isPending}
-        >
-          {isPending ? "Minting..." : "MINT"}
-        </button>
+        {address && (
+          <BalanceCheck
+            address={address}
+            price={getPrice()}
+            tokenAddress={
+              currency === "ETH" ? "native" : TREE_ERC20_PAYMENT_TOKEN
+            }
+          >
+            <button
+              className={`w-full py-3 rounded-full text-brand-black font-headline text-lg mt-auto ${
+                isDisabled
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-brand-green hover:text-brand-orange transition-colors"
+              }`}
+              onClick={handleMint}
+              disabled={isDisabled}
+            >
+              {invalidConnection ? (
+                "Connect Wallet to Base"
+              ) : (
+                <>{isPending ? "Minting..." : "MINT"}</>
+              )}
+            </button>
+          </BalanceCheck>
+        )}
       </div>
 
       <TransactionDrawer

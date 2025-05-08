@@ -16,14 +16,14 @@ export default function RemainingTreeSupply() {
   if (!remainingSupply) {
     return (
       <div className="text-center py-2">
-        <p className="text-lg font-headline">{supply} Trees Available</p>
+        <p className="text-2xl font-headline">{supply} Trees Available</p>
       </div>
     );
   }
 
   return (
     <div className="text-center py-4">
-      <p className="text-lg font-headline">
+      <p className="text-2xl font-headline">
         Only {remainingSupply} Trees Left!
       </p>
     </div>

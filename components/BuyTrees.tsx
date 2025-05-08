@@ -21,7 +21,7 @@ export default function BuyTrees() {
   return (
     <div className="container">
       <RemainingTreeSupply />
-      <p className="text-sm w-full text-center text-brand-orange mb-3">
+      <p className="text-sm w-full text-center text-brand-blue mb-3">
         Pick a Trunk
       </p>
       <div className="flex justify-center gap-4 mb-2">

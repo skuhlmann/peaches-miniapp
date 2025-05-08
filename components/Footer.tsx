@@ -39,7 +39,7 @@ export default function Footer() {
               href="/orchard"
               className="text-brand-white hover:underline font-heading"
             >
-              Orchard
+              Your Orchard
             </Link>
           </li>
           <li>

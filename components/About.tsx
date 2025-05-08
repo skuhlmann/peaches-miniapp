@@ -213,8 +213,53 @@ export default function About() {
         rel="noopener noreferrer"
         className="my-3 text-sm font-sans text-brand-orange hover:bg-red-500/10 transition-colors duration-200 underline"
       >
-        Learn more about PΞACH Tycoon on our Website
+        Learn more about PΞACH Tycoon
       </a>
+
+      {/* Proof-of-peach Section */}
+      <section className="w-full max-w-4xl mt-8 mb-6">
+        <h2 className="text-4xl font-bold mb-6 text-center font-heading text-brand-orange">
+          Proof-of-peach
+        </h2>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="bg-brand-green/20 rounded-lg p-4">
+            <Image
+              src="/images/box-2.jpg"
+              alt="Peach Box 2"
+              width={400}
+              height={400}
+              className="object-cover w-full h-full rounded-lg"
+            />
+          </div>
+          <div className="bg-brand-green/20 rounded-lg p-4">
+            <Image
+              src="/images/box-3.jpg"
+              alt="Peach Box 3"
+              width={400}
+              height={400}
+              className="object-cover w-full h-full rounded-lg"
+            />
+          </div>
+          <div className="bg-brand-green/20 rounded-lg p-4">
+            <Image
+              src="/images/freeze-dried.jpg"
+              alt="Freeze Dried Peaches"
+              width={400}
+              height={400}
+              className="object-cover w-full h-full rounded-lg"
+            />
+          </div>
+          <div className="bg-brand-green/20 rounded-lg p-4">
+            <Image
+              src="/images/palisades_orchard.jpeg"
+              alt="Palisades Orchard"
+              width={400}
+              height={400}
+              className="object-cover w-full h-full rounded-lg"
+            />
+          </div>
+        </div>
+      </section>
 
       <Link
         href="/orchard"
