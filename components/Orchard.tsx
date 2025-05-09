@@ -19,13 +19,24 @@ export default function Orchard() {
     }
   }, [accountNfts]);
 
+  useEffect(() => {
+    const handleSwitchToTreesTab = () => {
+      setActiveTab("trees");
+    };
+
+    window.addEventListener("switchToTreesTab", handleSwitchToTreesTab);
+    return () => {
+      window.removeEventListener("switchToTreesTab", handleSwitchToTreesTab);
+    };
+  }, []);
+
   if (!isConnected) {
     return <BuyTrees />;
   }
 
   return (
-    <div className="container mx-auto px-4 py-6">
-      <div className="border-b border-gray-200">
+    <div className="container mx-auto px-4 py-2">
+      <div>
         <nav className="-mb-px flex space-x-8">
           <button
             onClick={() => setActiveTab("buy")}
@@ -33,7 +44,7 @@ export default function Orchard() {
               activeTab === "buy"
                 ? "border-brand-orange text-brand-orange"
                 : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-            } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
+            } whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm`}
           >
             Buy Trees
           </button>
@@ -43,7 +54,7 @@ export default function Orchard() {
               activeTab === "trees"
                 ? "border-brand-orange text-brand-orange"
                 : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-            } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm`}
+            } whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm`}
           >
             Your Trees
           </button>

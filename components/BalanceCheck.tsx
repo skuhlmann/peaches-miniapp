@@ -18,20 +18,12 @@ export default function BalanceCheck({
     address,
   });
 
-  console.log("price", price);
-
-  console.log("nativeBalance", nativeBalance);
-
-  console.log("tokenAddress", tokenAddress);
-
   const { data: tokenBalance, isLoading: isTokenLoading } = useReadContract({
     address: tokenAddress === "native" ? undefined : tokenAddress,
     abi: erc20Abi,
     functionName: "balanceOf",
     args: [address],
   }) as { data: bigint; isLoading: boolean };
-
-  console.log("tokenBalance", tokenBalance);
 
   const isLoading =
     tokenAddress === "native" ? isNativeLoading : isTokenLoading;

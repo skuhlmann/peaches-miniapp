@@ -2,7 +2,6 @@ import Providers from "@/components/providers";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 
 export const metadata: Metadata = {

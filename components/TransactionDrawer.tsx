@@ -9,6 +9,8 @@ interface TransactionDrawerProps {
   hash?: `0x${string}`;
   isPending?: boolean;
   error?: Error;
+  successElement?: React.ReactNode;
+  onSuccess?: () => void;
 }
 
 export default function TransactionDrawer({
@@ -19,10 +21,24 @@ export default function TransactionDrawer({
   hash,
   isPending,
   error,
+  successElement,
+  onSuccess,
 }: TransactionDrawerProps) {
-  const { isLoading, isSuccess } = useWaitForTransactionReceipt({
+  const {
+    isLoading,
+    isSuccess,
+    data: receipt,
+  } = useWaitForTransactionReceipt({
     hash,
   });
+
+  console.log("receipt", receipt);
+
+  useEffect(() => {
+    if (isSuccess && onSuccess) {
+      onSuccess();
+    }
+  }, [isSuccess, onSuccess]);
 
   // Prevent body scroll when drawer is open
   useEffect(() => {
@@ -89,21 +105,24 @@ export default function TransactionDrawer({
             )}
 
             {isSuccess && (
-              <div className="flex items-center gap-2 text-green-500">
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-                <span>Transaction successful!</span>
+              <div className="flex flex-col items-center gap-4">
+                <div className="flex items-center gap-2 text-green-500">
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  <span>Transaction successful!</span>
+                </div>
+                {successElement}
               </div>
             )}
 

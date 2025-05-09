@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useMiniApp } from "@/contexts/miniapp-context";
 import { useAccount, useConnect, useDisconnect } from "wagmi";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 
 export default function Footer() {
-  const { connector } = useMiniApp();
+  const { connector, context } = useMiniApp();
   const { connect } = useConnect();
   const { isConnected } = useAccount();
 
@@ -20,7 +21,7 @@ export default function Footer() {
                 onClick={() => connect({ connector })}
                 className="text-brand-white hover:underline font-heading disabled:opacity-50"
               >
-                Sign in
+                Connect
               </button>
             </li>
           )}
@@ -30,7 +31,18 @@ export default function Footer() {
                 href="/account"
                 className="text-brand-white hover:underline font-heading"
               >
-                <UserCircleIcon className="h-6 w-6" />
+                {context?.user?.pfpUrl ? (
+                  <div className="relative" style={{ width: 32, height: 32 }}>
+                    <Image
+                      src={context.user.pfpUrl}
+                      alt="Profile"
+                      fill
+                      className="rounded-full object-cover border-2 border-brand-green"
+                    />
+                  </div>
+                ) : (
+                  <UserCircleIcon className="h-6 w-6" />
+                )}
               </Link>
             </li>
           )}
@@ -39,7 +51,7 @@ export default function Footer() {
               href="/orchard"
               className="text-brand-white hover:underline font-heading"
             >
-              Your Orchard
+              Orchard
             </Link>
           </li>
           <li>

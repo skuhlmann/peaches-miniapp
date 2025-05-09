@@ -1,8 +1,11 @@
+/* eslint-disable @next/next/no-img-element */
 import { useState } from "react";
 import TransactionDrawer from "./TransactionDrawer";
 import { useWriteContract, useAccount } from "wagmi";
 import TreeERC721 from "../lib/abis/TreeERC721.json";
 import BalanceCheck from "./BalanceCheck";
+import ApprovalCheck from "./ApprovalCheck";
+import { useAccountTrees } from "@/hooks/use-account-trees";
 import {
   CRITTER_COUNT_PLUS_ONE,
   TREE_NFT_CONTRACT_ADDRESS,
@@ -10,7 +13,6 @@ import {
   TREE_NFT_MINT_PRICE_ERC20,
   TREE_NFT_MINT_DISCOUNT_PERC,
   TARGET_CHAIN_ID,
-  USDC_CONTRACT_ADDRESS,
   TREE_ERC20_PAYMENT_TOKEN,
 } from "@/lib/constants";
 
@@ -39,6 +41,9 @@ export default function MintTreeCard({
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const { isConnected, chainId, address } = useAccount();
+  const { refetch: refetchAccountTrees } = useAccountTrees({
+    accountAddress: address || "",
+  });
 
   const { data: hash, error, isPending, writeContract } = useWriteContract();
 
@@ -101,6 +106,41 @@ export default function MintTreeCard({
       : basePrice;
   };
 
+  const renderButton = () => {
+    const button = (
+      <button
+        className={`w-full py-3 rounded-full text-brand-black font-headline text-lg mt-auto ${
+          isDisabled
+            ? "bg-gray-400 cursor-not-allowed"
+            : "bg-brand-green hover:text-brand-orange transition-colors"
+        }`}
+        onClick={handleMint}
+        disabled={isDisabled}
+      >
+        {invalidConnection ? (
+          "Connect Wallet to Base"
+        ) : (
+          <>{isPending ? "Minting..." : "MINT"}</>
+        )}
+      </button>
+    );
+
+    if (currency === "USDC" && address) {
+      return (
+        <ApprovalCheck
+          address={address}
+          amount={getPrice()}
+          spender={TREE_NFT_CONTRACT_ADDRESS}
+          tokenAddress={TREE_ERC20_PAYMENT_TOKEN}
+        >
+          {button}
+        </ApprovalCheck>
+      );
+    }
+
+    return button;
+  };
+
   return (
     <>
       <div className="bg-brand-gray rounded-2xl p-6 flex flex-col items-center shadow-lg max-w-md w-full">
@@ -158,21 +198,7 @@ export default function MintTreeCard({
               currency === "ETH" ? "native" : TREE_ERC20_PAYMENT_TOKEN
             }
           >
-            <button
-              className={`w-full py-3 rounded-full text-brand-black font-headline text-lg mt-auto ${
-                isDisabled
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-brand-green hover:text-brand-orange transition-colors"
-              }`}
-              onClick={handleMint}
-              disabled={isDisabled}
-            >
-              {invalidConnection ? (
-                "Connect Wallet to Base"
-              ) : (
-                <>{isPending ? "Minting..." : "MINT"}</>
-              )}
-            </button>
+            {renderButton()}
           </BalanceCheck>
         )}
       </div>
@@ -184,6 +210,38 @@ export default function MintTreeCard({
         hash={hash}
         isPending={isPending}
         error={error || undefined}
+        successElement={
+          <button
+            onClick={() => {
+              setIsDrawerOpen(false);
+              // Dispatch a custom event to switch to the trees tab
+              window.dispatchEvent(new CustomEvent("switchToTreesTab"));
+              refetchAccountTrees();
+            }}
+            className="flex items-center gap-2 text-brand-orange hover:text-brand-orange/80 transition-colors"
+          >
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+              />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+              />
+            </svg>
+            <span>View in My Trees</span>
+          </button>
+        }
       >
         <div className="space-y-4">
           <div className="flex flex-col items-center justify-between">

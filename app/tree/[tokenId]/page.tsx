@@ -1,59 +1,54 @@
-"use client";
+import { Metadata } from "next";
+import { headers } from "next/headers";
+import Tree from "@/components/Tree";
 
-import { useTreeNft } from "@/hooks/use-tree-nft";
-import { useParams } from "next/navigation";
+async function getBaseUrl() {
+  const headersList = await headers();
+  const host = headersList.get("host");
+  return `https://${host}`;
+}
 
-export default function TreePage() {
-  const params = useParams();
-  const tokenId = params.tokenId as string;
-  const { treeNft, isLoading, error } = useTreeNft({ tokenId });
+type Props = {
+  params: Promise<{ tokenId: string }>;
+};
 
-  if (isLoading) {
-    return (
-      <div className="container mx-auto px-4 py-6">
-        <p>Loading tree...</p>
-      </div>
-    );
-  }
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { tokenId } = await params;
+  const baseUrl = await getBaseUrl();
 
-  if (error || !treeNft) {
-    return (
-      <div className="container mx-auto px-4 py-6">
-        <p className="text-red-500">Error loading tree</p>
-      </div>
-    );
-  }
+  const frame = {
+    version: "next",
+    imageUrl: `${baseUrl}/tree/${tokenId}/opengraph-image`,
+    button: {
+      title: "PΞACH Tycoon",
+      action: {
+        type: "launch_frame",
+        name: "PΞACH Tycoon",
+        url: `${baseUrl}`,
+        iconImageUrl: `${baseUrl}/images/home_peach.png`,
+        splashImageUrl: `${baseUrl}/preview.png`,
+        splashBackgroundColor: "#0E1418",
+      },
+    },
+    postUrl: `${baseUrl}/api/frame`,
+  };
+  return {
+    title: "PΞACH Tycoon",
+    openGraph: {
+      title: "PΞACH Tycoon",
+      description:
+        "A seasonal NFT farming game where players can earn and/or sell boxes of real peaches.",
+      images: [`${baseUrl}/tree/${tokenId}/opengraph-image`],
+    },
+    other: {
+      "fc:frame": JSON.stringify(frame),
+      "fc:frame:image": `${baseUrl}/tree/${tokenId}/opengraph-image`,
+      "fc:frame:button:1": "PΞACH Tycoon",
+      "fc:frame:post_url": `${baseUrl}/api/frame`,
+    },
+  };
+}
 
-  return (
-    <div className="container mx-auto px-4 py-6">
-      <div className="bg-brand-green/20 p-4 rounded-lg">
-        <h1 className="text-2xl font-bold mb-4">Tree #{treeNft.tokenID}</h1>
-        {treeNft.tokenMetadata && (
-          <div>
-            {treeNft.tokenMetadata.image && (
-              <img
-                src={treeNft.tokenMetadata.image}
-                alt={`Tree ${treeNft.tokenID}`}
-                className="w-full h-auto rounded-lg mb-4"
-              />
-            )}
-            <p className="text-sm mb-2">{treeNft.tokenMetadata.description}</p>
-            {treeNft.tokenMetadata.attributes && (
-              <div className="mt-4">
-                <h2 className="text-lg font-semibold mb-2">Attributes</h2>
-                <div className="grid grid-cols-2 gap-2">
-                  {treeNft.tokenMetadata.attributes.map((attr, index) => (
-                    <div key={index} className="bg-white/10 p-2 rounded">
-                      <p className="text-sm font-medium">{attr.trait_type}</p>
-                      <p className="text-sm">{attr.value}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        )}
-      </div>
-    </div>
-  );
+export default function Page() {
+  return <Tree />;
 }
