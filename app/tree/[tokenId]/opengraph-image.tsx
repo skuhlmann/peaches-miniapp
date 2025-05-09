@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { ImageResponse } from "next/og";
-import { GraphQLClient } from "graphql-request";
-import { base } from "viem/chains";
+import { SEQUENCE_ENDPOINT, TREE_NFT_CONTRACT_ADDRESS } from "@/lib/constants";
+import { SequenceIndexer } from "@0xsequence/indexer";
 
 export const runtime = "edge";
 export const contentType = "image/png";
@@ -56,17 +56,36 @@ export default async function Image({
       return null;
     });
 
-  // todo: fetch nft from sequence and parse this stuff out
-
-  const season = "Winter";
-  const trunk = "0";
-  const critter = "2";
+  let nftImage:
+    | string
+    | undefined = `https://daohaus.mypinata.cloud/ipfs/bafybeic5dpqs7m4ivzllbxsp5xxr3n7gefz3aucieubmurznzuanmrkvji/Winter/0/0.png`;
   const currentYield = "2";
 
   try {
+    const indexer = new SequenceIndexer(
+      SEQUENCE_ENDPOINT,
+      process.env.SEQUENCE_API_KEY
+    );
+
+    const nft = await indexer.getTokenBalances({
+      contractAddress: TREE_NFT_CONTRACT_ADDRESS,
+      tokenID: params.tokenId,
+      includeMetadata: true,
+    });
+
+    if (nft.balances[0] && nft.balances[0].tokenMetadata?.image) {
+      // https://ipfs.sequence.info/ipfs/bafybeic5dpqs7m4ivzllbxsp5xxr3n7gefz3aucieubmurznzuanmrkvji/Winter/0/6.png
+      const imgPath = nft.balances[0].tokenMetadata.image
+        .split("/ipfs/")[1]
+        .split("/");
+
+      nftImage = `https://daohaus.mypinata.cloud/ipfs/bafybeic5dpqs7m4ivzllbxsp5xxr3n7gefz3aucieubmurznzuanmrkvji/${imgPath[1]}/${imgPath[2]}/${imgPath[3]}`;
+    }
   } catch (error) {
     console.error("Error:", error);
   }
+
+  console.log("nftImage", nftImage);
 
   // Build fonts array conditionally
   const fonts = [];
@@ -118,7 +137,7 @@ export default async function Image({
             }}
           >
             <img
-              src={`https://daohaus.mypinata.cloud/ipfs/bafybeic5dpqs7m4ivzllbxsp5xxr3n7gefz3aucieubmurznzuanmrkvji/${season}/${trunk}/${critter}.png`}
+              src={nftImage}
               alt="Peach Tycoon"
               style={{
                 height: "520px",
