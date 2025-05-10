@@ -1,0 +1,18 @@
+{
+  "accountAssociation": {
+    "header": "eyJmaWQiOjE0ODYyLCJ0eXBlIjoiY3VzdG9keSIsImtleSI6IjB4Yzg5MTM2MDhBZDdDZDJGODAyMjlmNGNGQjNFMTU4MjU0ODFGZDM5MyJ9",
+    "payload": "eyJkb21haW4iOiJtaW5pYXBwLnBlYWNodHljb29uLmNvbSJ9",
+    "signature": "MHg5NzNjYjNlMDhmZWRkODJlOGYzNTFlYTU0NjJjMTJiNzk5ODExZGRiY2FkMzhmY2IyYTdiZGU4NGZhOTBjODczMGE2NDBiZjM2Nzg2MGY3YWNjMWQxYzcyYjc3NmI4NWMwMmEyYjE4M2QzNWZlYWQwMTNkN2E4NzBjOTkxM2NmYzFj"
+  },
+  "frame": {
+    "version": "1",
+    "name": "PΞACH Tycoon",
+    "iconUrl": "https://miniapp.peachtycoon.com/icon.png",
+    "homeUrl": "https://miniapp.peachtycoon.com/",
+    "imageUrl": "https://miniapp.peachtycoon.com/image.png",
+    "buttonTitle": "Open",
+    "splashImageUrl": "https://miniapp.peachtycoon.com/splash.png",
+    "splashBackgroundColor": "#0E1418",
+    "webhookUrl": "https://miniapp.peachtycoon.com/api/webhook"
+  }
+}
