@@ -156,7 +156,7 @@ export default async function Image({
                 gap: "10px",
               }}
             >
-              <div>Current Yield: </div>
+              <div>My Current Yield: </div>
               <div>{currentYield}</div>
               <div>X</div>
 

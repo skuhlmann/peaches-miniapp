@@ -2,11 +2,7 @@ import { Metadata } from "next";
 import { headers } from "next/headers";
 import Tree from "@/components/Tree";
 
-async function getBaseUrl() {
-  const headersList = await headers();
-  const host = headersList.get("host");
-  return `https://${host}`;
-}
+const appUrl = process.env.NEXT_PUBLIC_URL;
 
 type Props = {
   params: Promise<{ tokenId: string }>;
@@ -14,23 +10,22 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { tokenId } = await params;
-  const baseUrl = await getBaseUrl();
 
   const frame = {
     version: "next",
-    imageUrl: `${baseUrl}/tree/${tokenId}/opengraph-image`,
+    imageUrl: `${appUrl}/tree/${tokenId}/opengraph-image`,
     button: {
       title: "PΞACH Tycoon",
       action: {
         type: "launch_frame",
         name: "PΞACH Tycoon",
-        url: `${baseUrl}`,
-        iconImageUrl: `${baseUrl}/images/home_peach.png`,
-        splashImageUrl: `${baseUrl}/preview.png`,
+        url: `${appUrl}`,
+        iconImageUrl: `${appUrl}/images/home_peach.png`,
+        splashImageUrl: `${appUrl}/preview.png`,
         splashBackgroundColor: "#0E1418",
       },
     },
-    postUrl: `${baseUrl}/api/frame`,
+    postUrl: `${appUrl}/api/frame`,
   };
   return {
     title: "PΞACH Tycoon",
@@ -38,13 +33,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: "PΞACH Tycoon",
       description:
         "A seasonal NFT farming game where players can earn and/or sell boxes of real peaches.",
-      images: [`${baseUrl}/tree/${tokenId}/opengraph-image`],
+      images: [`${appUrl}/tree/${tokenId}/opengraph-image`],
     },
     other: {
       "fc:frame": JSON.stringify(frame),
-      "fc:frame:image": `${baseUrl}/tree/${tokenId}/opengraph-image`,
+      "fc:frame:image": `${appUrl}/tree/${tokenId}/opengraph-image`,
       "fc:frame:button:1": "PΞACH Tycoon",
-      "fc:frame:post_url": `${baseUrl}/api/frame`,
+      "fc:frame:post_url": `${appUrl}/api/frame`,
     },
   };
 }
