@@ -1,84 +1,137 @@
 "use client";
 
-import { useSignIn } from "@/hooks/use-sign-in";
 import Image from "next/image";
-import { useState } from "react";
+import Link from "next/link";
 
 export default function Home() {
-  const { signIn, isLoading, isSignedIn, user } = useSignIn({
-    autoSignIn: false,
-  });
-  const [testResult, setTestResult] = useState<string>("");
-
-  const testAuth = async () => {
-    try {
-      const res = await fetch("/api/test", {
-        credentials: "include",
-      });
-      const data = await res.json();
-
-      if (!res.ok) {
-        setTestResult(`Auth test failed: ${data.error}`);
-        return;
-      }
-
-      setTestResult(`Auth test succeeded! Server response: ${data.message}`);
-    } catch (error) {
-      setTestResult(
-        "Auth test failed: " +
-          (error instanceof Error ? error.message : "Unknown error")
-      );
-    }
-  };
-
   return (
     <div className="bg-brand-black text-brand-white flex min-h-screen flex-col items-center justify-center p-4">
-      <div className="text-center space-y-4">
-        <h1 className="text-4xl font-bold font-heading">Welcome</h1>
-        <p className="text-lg text-brand-blue">
-          {isSignedIn ? "You are signed in!" : "Sign in to get started"}
-        </p>
-
-        {!isSignedIn ? (
-          <button
-            onClick={signIn}
-            disabled={isLoading}
-            className="px-6 py-3 bg-brand-orange text-brand-white font-semibold rounded-lg shadow-md hover:bg-brand-red focus:outline-none focus:ring-2 focus:ring-brand-orange focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
-          >
-            {isLoading ? "Signing in..." : "Sign in"}
-          </button>
-        ) : (
-          <div className="space-y-4">
-            {user && (
-              <div className="flex flex-col items-center space-y-2">
-                <Image
-                  src={user.pfp_url}
-                  alt="Profile"
-                  className="w-20 h-20 rounded-full"
-                  width={80}
-                  height={80}
-                />
-                <div className="text-center">
-                  <p className="font-semibold">{user.display_name}</p>
-                  <p className="text-sm text-brand-blue">@{user.username}</p>
-                </div>
-              </div>
-            )}
-            <button
-              onClick={testAuth}
-              className="px-6 py-3 bg-brand-green text-brand-white font-semibold rounded-lg shadow-md hover:bg-brand-red focus:outline-none focus:ring-2 focus:ring-brand-green focus:ring-opacity-50 transition-colors duration-200"
-            >
-              Test Authentication
-            </button>
-
-            {testResult && (
-              <div className="mt-4 p-4 rounded-lg bg-brand-gray text-brand-white text-sm">
-                {testResult}
-              </div>
-            )}
+      <section className="flex flex-col md:flex-row items-center justify-center gap-2 w-full max-w-4xl">
+        {/* Step 1 */}
+        <div className="flex flex-col items-center gap-2">
+          <div className="flex flex-row items-center justify-around w-full gap-4 flex-wrap">
+            <div className="flex flex-col items-center md:flex-row md:items-center gap-4">
+              <span className="text-5xl md:text-6xl font-extrabold leading-none font-headline">
+                YOU
+                <br />
+                BUY
+                <br />
+                TREE.
+              </span>
+            </div>
+            <Image
+              src="/images/tree-3.png"
+              alt="Tree"
+              width={125}
+              height={125}
+              className="mb-2 md:mb-0"
+            />
           </div>
-        )}
+          <svg
+            className="w-4 h-4 text-red-500"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M19 14l-7 7m0 0l-7-7m7 7V3"
+            />
+          </svg>
+        </div>
+
+        {/* Step 2 */}
+        <div className="flex flex-col items-center gap-4">
+          <div className="flex flex-row items-center justify-around w-full gap-4 flex-wrap">
+            <div className="flex flex-col items-center md:flex-row md:items-center gap-4">
+              <span className="text-5xl md:text-6xl font-extrabold leading-none font-headline">
+                TREE
+                <br />
+                GROWS
+                <br />
+                PEACH.
+              </span>
+            </div>
+            <Image
+              src="/images/home_peach.png"
+              alt="Peach"
+              width={140}
+              height={140}
+              className="mb-2 md:mb-0"
+            />
+          </div>
+          <svg
+            className="w-4 h-4 text-red-500"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M19 14l-7 7m0 0l-7-7m7 7V3"
+            />
+          </svg>
+        </div>
+
+        {/* Step 3 */}
+        <div className="flex flex-col items-center gap-2">
+          <div className="flex flex-row items-center justify-around w-full gap-1 flex-wrap">
+            <div className="flex flex-col items-center md:flex-row md:items-center gap-4">
+              <span className="text-5xl md:text-6xl font-extrabold leading-none font-headline">
+                YOU
+                <br />
+                EAT<span className="align-super text-2xl">*</span>
+                <br />
+                PEACH.
+              </span>
+            </div>
+            <Image
+              src="/images/home_peach_bite.png"
+              alt="Peach Bite"
+              width={140}
+              height={140}
+              className="mb-0 md:mb-0"
+            />
+          </div>
+          <p className="text-xs mt-0 text-brand-white/70 w-full">
+            *or sell to the marketplace for others to enjoy.
+          </p>
+        </div>
+      </section>
+
+      <div className="flex flex-row items-center justify-center gap-1 mt-6 mb-1">
+        <Image
+          src="/images/peach_title.png"
+          alt="Peach Title"
+          width={50}
+          height={100}
+        />
+        <Image
+          src="/images/tycoon_title.png"
+          alt="Tycoon Title"
+          width={100}
+          height={100}
+        />
       </div>
+      <p className="text-xs text-brand-orange">Buy now, munch later.</p>
+
+      <Link
+        href="/orchard"
+        className="my-6 px-12 py-6 text-2xl font-headline text-brand-red bg-brand-black border-2 border-brand-orange rounded-full hover:bg-orange-500/10 transition-colors duration-200"
+      >
+        GET TREES
+      </Link>
+
+      <Link
+        href="/about"
+        className="my-3 text-lg font-headline text-brand-orange hover:bg-red-500/10 transition-colors duration-200 underline"
+      >
+        HOW DOES THIS WORK?
+      </Link>
     </div>
   );
 }
