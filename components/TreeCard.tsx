@@ -41,6 +41,8 @@ const TreeCard: React.FC<TreeCardProps> = ({ nft }) => {
           : process.env.NEXT_PUBLIC_URL || "https://miniapp.paeachtycoon.com";
       const campaignUrl = `${baseUrl}/tree/${nft.tokenID}`;
 
+      console.log("campaignUrl", campaignUrl);
+
       let text = "I'm farming peaches!";
 
       if (tokenMetadata?.description) {
@@ -48,7 +50,7 @@ const TreeCard: React.FC<TreeCardProps> = ({ nft }) => {
       }
 
       if (tokenMetadata?.attributes[1]?.value !== "None") {
-        if (tokenMetadata?.attributes[2]?.value === "Racoon") {
+        if (tokenMetadata?.attributes[1]?.value === "Racoon") {
           text += ` and his Raccoon fren.`;
         } else {
           text += ` and his ${tokenMetadata?.attributes[1]?.value} fren.`;

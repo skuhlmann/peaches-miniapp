@@ -5,7 +5,7 @@ export const runtime = "edge";
 export const contentType = "image/png";
 export const size = {
   width: 1200,
-  height: 630,
+  height: 800,
 };
 
 export default async function Image({
@@ -81,8 +81,7 @@ export default async function Image({
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          paddingTop: "40px",
-          paddingBottom: "40px",
+          paddingTop: "80px",
           color: "#ffffff", // Changed default text color
         }}
       >
@@ -96,7 +95,7 @@ export default async function Image({
             width: "100%",
             padding: "0px 30px 0px 30px",
             fontSize: "80px",
-            marginBottom: "10px",
+            marginBottom: "60px",
           }}
         >
           <div
@@ -192,7 +191,7 @@ export default async function Image({
               alignItems: "center",
               width: "100%",
               gap: "10px",
-              marginTop: "15px",
+              marginTop: "60px",
             }}
           >
             <img

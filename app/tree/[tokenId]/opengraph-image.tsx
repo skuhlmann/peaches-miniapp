@@ -7,7 +7,7 @@ export const runtime = "edge";
 export const contentType = "image/png";
 export const size = {
   width: 1200,
-  height: 630,
+  height: 800,
 };
 
 export default async function Image({
@@ -15,7 +15,6 @@ export default async function Image({
 }: {
   params: { tokenId: string };
 }) {
-  console.log("params", params);
   const baseUrl =
     process.env.NEXT_PUBLIC_URL || "https://miniapp.peachtycoon.com";
   const logo = `${baseUrl}/images/logo_wordmark.png`;
@@ -140,8 +139,8 @@ export default async function Image({
               src={nftImage}
               alt="Peach Tycoon"
               style={{
-                height: "520px",
-                marginBottom: "10px",
+                height: "675px",
+                marginBottom: "20px",
               }}
             />
             <div
@@ -152,7 +151,7 @@ export default async function Image({
                 alignItems: "center",
                 width: "100%",
                 color: "#419361",
-                fontSize: "20px",
+                fontSize: "30px",
                 gap: "10px",
               }}
             >
@@ -164,13 +163,13 @@ export default async function Image({
                 src={peachIcon}
                 alt="Peach"
                 style={{
-                  height: "25px",
+                  height: "35px",
                 }}
               />
             </div>
           </div>
           <div
-            style={{ display: "flex", flexDirection: "column", gap: "10px" }}
+            style={{ display: "flex", flexDirection: "column", gap: "30px" }}
           >
             <img
               src={logo}
@@ -197,7 +196,7 @@ export default async function Image({
                 fontFamily: "'Work Sans'",
                 color: "#ffffff",
                 textAlign: "left",
-                maxWidth: "690px",
+                maxWidth: "580px",
               }}
             >
               My tree will produce two (2) peach boxes that each include a
@@ -213,7 +212,7 @@ export default async function Image({
                 alignItems: "flex-start",
 
                 width: "100%",
-                fontSize: "40px",
+                fontSize: "60px",
                 textTransform: "uppercase",
                 marginTop: "15px",
               }}
@@ -232,7 +231,7 @@ export default async function Image({
                 justifyContent: "space-between",
                 alignItems: "center",
                 width: "100%",
-                gap: "10px",
+                gap: "5px",
                 marginTop: "15px",
               }}
             >

@@ -11,6 +11,8 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { tokenId } = await params;
 
+  console.log("tokenId", tokenId);
+
   const frame = {
     version: "next",
     imageUrl: `${appUrl}/tree/${tokenId}/opengraph-image`,

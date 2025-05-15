@@ -9,12 +9,11 @@ import { useAccountTrees } from "@/hooks/use-account-trees";
 import {
   CRITTER_COUNT_PLUS_ONE,
   TREE_NFT_CONTRACT_ADDRESS,
-  NFT_MINT_PRICE,
-  TREE_NFT_MINT_PRICE_ERC20,
   TREE_NFT_MINT_DISCOUNT_PERC,
   TARGET_CHAIN_ID,
   TREE_ERC20_PAYMENT_TOKEN,
 } from "@/lib/constants";
+import { useTreeMintPrice } from "@/hooks/use-tree-mint-price";
 
 const getCritterId = () => {
   return Math.floor(Math.random() * CRITTER_COUNT_PLUS_ONE);
@@ -44,6 +43,7 @@ export default function MintTreeCard({
   const { refetch: refetchAccountTrees } = useAccountTrees({
     accountAddress: address || "",
   });
+  const { erc20MintPrice, nativeMintPrice } = useTreeMintPrice();
 
   const { data: hash, error, isPending, writeContract } = useWriteContract();
 
@@ -55,20 +55,20 @@ export default function MintTreeCard({
   };
 
   const originalPrice = formatPrice(
-    currency === "ETH" ? NFT_MINT_PRICE : TREE_NFT_MINT_PRICE_ERC20,
+    currency === "ETH" ? nativeMintPrice : erc20MintPrice,
     currency === "ETH"
   );
   const discountedPrice = calculateDiscountedPrice(
-    currency === "ETH" ? NFT_MINT_PRICE : TREE_NFT_MINT_PRICE_ERC20,
+    currency === "ETH" ? nativeMintPrice : erc20MintPrice,
     currency === "ETH"
   );
 
   const handleMint = () => {
     if (currency === "ETH") {
       const price = hasDiscount
-        ? NFT_MINT_PRICE -
-          (NFT_MINT_PRICE * BigInt(TREE_NFT_MINT_DISCOUNT_PERC)) / BigInt(100)
-        : NFT_MINT_PRICE;
+        ? nativeMintPrice -
+          (nativeMintPrice * BigInt(TREE_NFT_MINT_DISCOUNT_PERC)) / BigInt(100)
+        : nativeMintPrice;
 
       writeContract({
         address: TREE_NFT_CONTRACT_ADDRESS,
@@ -79,10 +79,9 @@ export default function MintTreeCard({
       });
     } else {
       const amount = hasDiscount
-        ? TREE_NFT_MINT_PRICE_ERC20 -
-          (TREE_NFT_MINT_PRICE_ERC20 * BigInt(TREE_NFT_MINT_DISCOUNT_PERC)) /
-            BigInt(100)
-        : TREE_NFT_MINT_PRICE_ERC20;
+        ? erc20MintPrice -
+          (erc20MintPrice * BigInt(TREE_NFT_MINT_DISCOUNT_PERC)) / BigInt(100)
+        : erc20MintPrice;
 
       writeContract({
         address: TREE_NFT_CONTRACT_ADDRESS,
@@ -98,8 +97,7 @@ export default function MintTreeCard({
   const isDisabled = isPending || invalidConnection;
 
   const getPrice = () => {
-    const basePrice =
-      currency === "ETH" ? NFT_MINT_PRICE : TREE_NFT_MINT_PRICE_ERC20;
+    const basePrice = currency === "ETH" ? nativeMintPrice : erc20MintPrice;
     return hasDiscount
       ? basePrice -
           (basePrice * BigInt(TREE_NFT_MINT_DISCOUNT_PERC)) / BigInt(100)

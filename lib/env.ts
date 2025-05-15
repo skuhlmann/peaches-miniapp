@@ -6,8 +6,8 @@ export const env = createEnv({
   server: {
     NEYNAR_API_KEY: z.string().min(1),
     JWT_SECRET: z.string().min(1),
-    REDIS_URL: z.string().min(1),
-    REDIS_TOKEN: z.string().min(1),
+    // REDIS_URL: z.string().min(1),
+    // REDIS_TOKEN: z.string().min(1),
   },
   client: {
     NEXT_PUBLIC_URL: z.string().min(1),
@@ -27,6 +27,7 @@ export const env = createEnv({
     NEXT_PUBLIC_MINIKIT_PROJECT_ID: process.env.NEXT_PUBLIC_MINIKIT_PROJECT_ID,
     NEXT_PUBLIC_FARCASTER_HEADER: process.env.NEXT_PUBLIC_FARCASTER_HEADER,
     NEXT_PUBLIC_FARCASTER_PAYLOAD: process.env.NEXT_PUBLIC_FARCASTER_PAYLOAD,
-    NEXT_PUBLIC_FARCASTER_SIGNATURE: process.env.NEXT_PUBLIC_FARCASTER_SIGNATURE,
+    NEXT_PUBLIC_FARCASTER_SIGNATURE:
+      process.env.NEXT_PUBLIC_FARCASTER_SIGNATURE,
   },
 });
