@@ -61,7 +61,7 @@ export default function Orchard() {
         </nav>
       </div>
 
-      <div className="mt-6">
+      <div className="mt-4">
         {activeTab === "buy" ? (
           <BuyTrees />
         ) : (

@@ -5,11 +5,11 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="bg-brand-black text-brand-white flex min-h-screen flex-col items-center justify-center p-4">
+    <div className="bg-brand-black text-brand-white flex min-h-screen flex-col items-center justify-center px-4">
       <section className="flex flex-col md:flex-row items-center justify-center gap-2 w-full max-w-4xl">
         {/* Step 1 */}
-        <div className="flex flex-col items-center gap-2">
-          <div className="flex flex-row items-center justify-around w-full gap-4 flex-wrap">
+        <div className="flex flex-col items-center w-full">
+          <div className="flex flex-row items-center justify-between w-full gap-4 flex-wrap">
             <div className="flex flex-col items-center md:flex-row md:items-center gap-4">
               <span className="text-5xl md:text-6xl font-extrabold leading-none font-headline">
                 YOU
@@ -28,7 +28,7 @@ export default function Home() {
             />
           </div>
           <svg
-            className="w-4 h-4 text-red-500"
+            className="w-8 h-8 text-red-500"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -43,8 +43,8 @@ export default function Home() {
         </div>
 
         {/* Step 2 */}
-        <div className="flex flex-col items-center gap-4">
-          <div className="flex flex-row items-center justify-around w-full gap-4 flex-wrap">
+        <div className="flex flex-col items-center gap-4 w-full">
+          <div className="flex flex-row items-center justify-between w-full gap-4 flex-wrap">
             <div className="flex flex-col items-center md:flex-row md:items-center gap-4">
               <span className="text-5xl md:text-6xl font-extrabold leading-none font-headline">
                 TREE
@@ -63,7 +63,7 @@ export default function Home() {
             />
           </div>
           <svg
-            className="w-4 h-4 text-red-500"
+            className="w-8 h-8 text-red-500"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -78,8 +78,8 @@ export default function Home() {
         </div>
 
         {/* Step 3 */}
-        <div className="flex flex-col items-center gap-2">
-          <div className="flex flex-row items-center justify-around w-full gap-1 flex-wrap">
+        <div className="flex flex-col items-center gap-2 w-full">
+          <div className="flex flex-row items-center justify-between w-full gap-1 flex-wrap">
             <div className="flex flex-col items-center md:flex-row md:items-center gap-4">
               <span className="text-5xl md:text-6xl font-extrabold leading-none font-headline">
                 YOU

@@ -64,3 +64,15 @@ export const TREE_NFT_DATA: NftTreeMeta[] = [
     value: 2,
   },
 ];
+
+export const CRITTER_NAMES = [
+  "None",
+  "Bear",
+  "Fox",
+  "Raccoon",
+  "Sack",
+  "Squirrel",
+  "Wine Barrel",
+  "Eagle",
+  "Crow",
+];

@@ -1,3 +1,5 @@
+"use client";
+
 /* eslint-disable @next/next/no-img-element */
 import { useState } from "react";
 import TransactionDrawer from "./TransactionDrawer";
@@ -12,8 +14,10 @@ import {
   TREE_NFT_MINT_DISCOUNT_PERC,
   TARGET_CHAIN_ID,
   TREE_ERC20_PAYMENT_TOKEN,
+  CRITTER_NAMES,
 } from "@/lib/constants";
 import { useTreeMintPrice } from "@/hooks/use-tree-mint-price";
+import { useRouter } from "next/navigation";
 
 const getCritterId = () => {
   return Math.floor(Math.random() * CRITTER_COUNT_PLUS_ONE);
@@ -38,7 +42,10 @@ export default function MintTreeCard({
 }) {
   const [currency, setCurrency] = useState<"ETH" | "USDC">("ETH");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [mintedTokenId, setMintedTokenId] = useState<number | undefined>();
+  const [mintedCritterId, setMintedCritterId] = useState<number | undefined>();
 
+  const router = useRouter();
   const { isConnected, chainId, address } = useAccount();
   const { refetch: refetchAccountTrees } = useAccountTrees({
     accountAddress: address || "",
@@ -64,6 +71,11 @@ export default function MintTreeCard({
   );
 
   const handleMint = () => {
+    const critterId = getCritterId();
+    setMintedCritterId(critterId);
+
+    console.log("critterId", critterId);
+
     if (currency === "ETH") {
       const price = hasDiscount
         ? nativeMintPrice -
@@ -75,7 +87,7 @@ export default function MintTreeCard({
         abi: TreeERC721,
         functionName: "mint",
         value: price,
-        args: [tree.value, getCritterId()],
+        args: [tree.value, critterId],
       });
     } else {
       const amount = hasDiscount
@@ -87,7 +99,7 @@ export default function MintTreeCard({
         address: TREE_NFT_CONTRACT_ADDRESS,
         abi: TreeERC721,
         functionName: "mintERC20",
-        args: [tree.value, getCritterId(), amount],
+        args: [tree.value, critterId, amount],
       });
     }
     setIsDrawerOpen(true);
@@ -103,6 +115,13 @@ export default function MintTreeCard({
           (basePrice * BigInt(TREE_NFT_MINT_DISCOUNT_PERC)) / BigInt(100)
       : basePrice;
   };
+
+  const handleTreeNav = () => {
+    if (mintedTokenId) {
+      router.push(`/tree/${mintedTokenId}`);
+    }
+  };
+  console.log("mintedTokenId", mintedTokenId);
 
   const renderButton = () => {
     const button = (
@@ -208,13 +227,18 @@ export default function MintTreeCard({
         hash={hash}
         isPending={isPending}
         error={error || undefined}
+        setReceiptData={setMintedTokenId}
         successElement={
           <button
             onClick={() => {
               setIsDrawerOpen(false);
-              // Dispatch a custom event to switch to the trees tab
-              window.dispatchEvent(new CustomEvent("switchToTreesTab"));
               refetchAccountTrees();
+
+              if (mintedTokenId) {
+                handleTreeNav();
+              } else {
+                window.dispatchEvent(new CustomEvent("switchToTreesTab"));
+              }
             }}
             className="flex items-center gap-2 text-brand-orange hover:text-brand-orange/80 transition-colors"
           >
@@ -237,18 +261,25 @@ export default function MintTreeCard({
                 d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
               />
             </svg>
-            <span>View in My Trees</span>
+            <span>Check out your tree</span>
           </button>
         }
       >
         <div className="space-y-4">
           <div className="flex flex-col items-center justify-between">
             <span className="font-medium">{tree.name}</span>
+
             <img
               src={`/images/${tree.img}`}
               alt={tree.name}
               className="w-40 object-contain mb-4"
             />
+
+            {mintedTokenId && mintedCritterId && mintedCritterId > 0 && (
+              <p className="text-brand-orange font-bold text-lg">
+                You got a {CRITTER_NAMES[mintedCritterId]} fren!!
+              </p>
+            )}
           </div>
         </div>
       </TransactionDrawer>

@@ -267,6 +267,17 @@ export default function About() {
       >
         GET TREES
       </Link>
+
+      <div className="text-xs">
+        From frens at{" "}
+        <a href="https://www.metacartel.org/" target="_blank">
+          🌶️{" "}
+        </a>
+        and{" "}
+        <a href="https://www.raidguild.org/" target="_blank">
+          ⚔️
+        </a>
+      </div>
     </div>
   );
 }
