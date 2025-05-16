@@ -37,13 +37,12 @@ export async function getFarcasterManifest() {
       splashBackgroundColor: "#0E1418",
       webhookUrl: `${appUrl}/api/webhook`,
       // Metadata https://github.com/farcasterxyz/miniapps/discussions/191
-      subtitle: "Farm for real peaches.", // 30 characters, no emojis or special characters, short description under app name
+      subtitle: "Farm for real peaches", // 30 characters, no emojis or special characters, short description under app name
       description:
         "A seasonal NFT farming game where players can earn and sell boxes of real peaches", // 170 characters, no emojis or special characters, promotional message displayed on Mini App Page
       primaryCategory: "games",
       tags: ["mini-app", "farming", "nfts", "peaches", "digiedibles"], // up to 5 tags, filtering/search tags
-      tagline:
-        "A seasonal NFT farming game where players can earn and sell boxes of real peaches", // 30 characters, marketing tagline should be punchy and descriptive
+      tagline: "NFTs for Real Peaches", // 30 characters, marketing tagline should be punchy and descriptive
       ogTitle: `${frameName}`, // 30 characters, app name + short tag, Title case, no emojis
       ogDescription:
         "A seasonal NFT farming game where players can earn and sell boxes of real peaches", // 100 characters, summarize core benefits in 1-2 lines
