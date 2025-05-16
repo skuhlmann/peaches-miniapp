@@ -1,6 +1,5 @@
 import App from "@/components/App";
 import Footer from "@/components/Footer";
-import { env } from "@/lib/env";
 import { Metadata } from "next";
 
 const appUrl = process.env.NEXT_PUBLIC_URL;
@@ -8,7 +7,7 @@ const appUrl = process.env.NEXT_PUBLIC_URL;
 export async function generateMetadata(): Promise<Metadata> {
   const frame = {
     version: "next",
-    imageUrl: `${appUrl}/opengraph-image`,
+    imageUrl: `${appUrl}/home.png`,
     button: {
       title: "PΞACH Tycoon",
       action: {
@@ -28,11 +27,11 @@ export async function generateMetadata(): Promise<Metadata> {
       title: "PΞACH Tycoon",
       description:
         "A seasonal NFT farming game where players can earn and/or sell boxes of real peaches.",
-      images: [`${appUrl}/opengraph-image`],
+      images: [`${appUrl}/home.png`],
     },
     other: {
       "fc:frame": JSON.stringify(frame),
-      "fc:frame:image": `${appUrl}/opengraph-image`,
+      "fc:frame:image": `${appUrl}/home.png`,
       "fc:frame:button:1": "PΞACH Tycoon",
       "fc:frame:post_url": `${appUrl}/api/frame`,
     },
