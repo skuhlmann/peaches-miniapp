@@ -6,7 +6,7 @@ import { env } from "@/lib/env";
  * @returns The farcaster manifest for the frame
  */
 export async function getFarcasterManifest() {
-  let frameName = "Peach Tycoon";
+  let frameName = "PΞACH Tycoon";
   let noindex = false;
   const appUrl = env.NEXT_PUBLIC_URL;
   if (appUrl.includes("localhost")) {
@@ -28,19 +28,19 @@ export async function getFarcasterManifest() {
     frame: {
       version: "1",
       name: frameName,
-      iconUrl: `${appUrl}/logo.png`,
+      iconUrl: `${appUrl}/icon_1024.png`,
       homeUrl: appUrl,
-      imageUrl: `${appUrl}/preview.png`,
-      buttonTitle: `Launch App`,
-      splashImageUrl: `${appUrl}/logo.png`,
+      // deprecated
+      // imageUrl: `${appUrl}/preview.png`,
+      // buttonTitle: `Launch App`,
+      splashImageUrl: `${appUrl}/splash_200.png`,
       splashBackgroundColor: "#0E1418",
       webhookUrl: `${appUrl}/api/webhook`,
       // Metadata https://github.com/farcasterxyz/miniapps/discussions/191
-      subtitle:
-        "A seasonal NFT farming game where players can earn and/or sell boxes of real peaches.", // 30 characters, no emojis or special characters, short description under app name
+      subtitle: "Farm for real peaches.", // 30 characters, no emojis or special characters, short description under app name
       description:
         "A seasonal NFT farming game where players can earn and/or sell boxes of real peaches.", // 170 characters, no emojis or special characters, promotional message displayed on Mini App Page
-      primaryCategory: "social",
+      primaryCategory: "games",
       tags: ["mini-app", "farming", "nfts", "peaches", "digiedibles"], // up to 5 tags, filtering/search tags
       tagline:
         "A seasonal NFT farming game where players can earn and/or sell boxes of real peaches.", // 30 characters, marketing tagline should be punchy and descriptive
@@ -51,8 +51,8 @@ export async function getFarcasterManifest() {
         // 1284 x 2778, visual previews of the app, max 3 screenshots
         // `${appUrl}/images/feed.png`,
       ],
-      heroImageUrl: `${appUrl}/twitter.png`, // 1200 x 630px (1.91:1), promotional display image on top of the mini app store
-      ogImageUrl: `${appUrl}/twitter.png`, // 1200 x 630px (1.91:1), promotional image, same as app hero image
+      heroImageUrl: `${appUrl}/preview.png`, // 1200 x 630px (1.91:1), promotional display image on top of the mini app store
+      ogImageUrl: `${appUrl}/preview.png`, // 1200 x 630px (1.91:1), promotional image, same as app hero image
       noindex: noindex,
     },
   };

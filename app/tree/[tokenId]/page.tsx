@@ -11,8 +11,6 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { tokenId } = await params;
 
-  console.log("tokenId", tokenId);
-
   const frame = {
     version: "next",
     imageUrl: `${appUrl}/tree/${tokenId}/opengraph-image`,
@@ -22,8 +20,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         type: "launch_frame",
         name: "PΞACH Tycoon",
         url: `${appUrl}`,
-        iconImageUrl: `${appUrl}/images/home_peach.png`,
-        splashImageUrl: `${appUrl}/preview.png`,
+        // iconImageUrl: `${appUrl}/images/home_peach.png`,
+        splashImageUrl: `${appUrl}/splash_200.png`,
         splashBackgroundColor: "#0E1418",
       },
     },
