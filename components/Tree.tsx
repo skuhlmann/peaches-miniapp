@@ -3,6 +3,7 @@
 import { useTreeNft } from "@/hooks/use-tree-nft";
 import { useParams } from "next/navigation";
 import TreeCard from "./TreeCard";
+import Link from "next/link";
 
 export default function Tree() {
   const params = useParams();
@@ -11,7 +12,7 @@ export default function Tree() {
 
   if (isLoading) {
     return (
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 py-2">
         <p>Loading tree...</p>
       </div>
     );
@@ -19,14 +20,22 @@ export default function Tree() {
 
   if (error || !treeNft) {
     return (
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 py-2">
         <p className="text-red-500">Error loading tree</p>
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto px-4 py-6">
+    <div className="container mx-auto px-4 py-2">
+      <nav className="-mb-px flex space-x-8 mb-6">
+        <Link
+          href={`/orchard`}
+          className="text-brand-orange py-2 px-1 font-medium text-sm border-b-2 border-brand-orange"
+        >
+          Back to Orchard
+        </Link>
+      </nav>
       <TreeCard nft={treeNft} />
 
       {treeNft.tokenMetadata?.attributes && (

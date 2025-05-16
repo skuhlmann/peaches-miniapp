@@ -4,6 +4,7 @@ import React, { useCallback } from "react";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import sdk from "@farcaster/frame-sdk";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 
 interface TokenMetadata {
   name: string;
@@ -30,8 +31,8 @@ export const dhImagePath = (path?: string) => {
 };
 
 const TreeCard: React.FC<TreeCardProps> = ({ nft }) => {
-  const { contractAddress, tokenID, tokenMetadata } = nft;
-  const blockExplorerUrl = `https://basescan.org/token/${contractAddress}?a=${tokenID}`;
+  const { tokenID, tokenMetadata } = nft;
+  const params = useParams();
 
   const handleCastTree = useCallback(async () => {
     try {
@@ -57,8 +58,9 @@ const TreeCard: React.FC<TreeCardProps> = ({ nft }) => {
         }
       }
 
-      text +=
-        " It will produce at least two peach boxes that each include a farmer's dozen (13) delicious, Palisade peaches!";
+      text += ` ${
+        tokenMetadata?.description || "It"
+      } will produce at least two peach boxes that each include a farmer's dozen (13) delicious, Palisade peaches!`;
 
       await sdk.actions.composeCast({
         text,
@@ -72,12 +74,16 @@ const TreeCard: React.FC<TreeCardProps> = ({ nft }) => {
   return (
     <div className="flex flex-col items-center bg-brand-gray p-4 rounded-lg">
       <div className="flex flex-row w-full justify-start mb-2">
-        <Link
-          href={`/tree/${tokenID}`}
-          className="text-brand-orange underline text-xs"
-        >
-          {tokenMetadata?.name}
-        </Link>
+        {params.tokenId ? (
+          <p className="text-brand-white text-xs">{tokenMetadata?.name}</p>
+        ) : (
+          <Link
+            href={`/tree/${tokenID}`}
+            className="text-brand-orange underline text-xs"
+          >
+            {tokenMetadata?.name}
+          </Link>
+        )}
       </div>
       <div className="flex flex-row w-full gap-4">
         {tokenMetadata?.image ? (

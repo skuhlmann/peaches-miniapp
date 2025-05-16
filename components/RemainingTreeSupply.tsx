@@ -22,8 +22,8 @@ export default function RemainingTreeSupply() {
   }
 
   return (
-    <div className="text-center py-4">
-      <p className="text-2xl font-headline">
+    <div className="text-center">
+      <p className="text-xl font-headline">
         Only {remainingSupply} Trees Left!
       </p>
     </div>

@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
+import { fromHex } from "viem";
 import { useWaitForTransactionReceipt } from "wagmi";
 
 interface TransactionDrawerProps {
@@ -11,6 +12,7 @@ interface TransactionDrawerProps {
   error?: Error;
   successElement?: React.ReactNode;
   onSuccess?: () => void;
+  setReceiptData?: Dispatch<SetStateAction<number | undefined>>;
 }
 
 export default function TransactionDrawer({
@@ -23,6 +25,7 @@ export default function TransactionDrawer({
   error,
   successElement,
   onSuccess,
+  setReceiptData,
 }: TransactionDrawerProps) {
   const {
     isLoading,
@@ -39,6 +42,18 @@ export default function TransactionDrawer({
       onSuccess();
     }
   }, [isSuccess, onSuccess]);
+
+  useEffect(() => {
+    if (isSuccess && receipt && setReceiptData) {
+      const tokenId = receipt.logs[0].topics[3];
+
+      console.log("tokenId", tokenId);
+
+      if (tokenId) {
+        setReceiptData(parseInt(tokenId));
+      }
+    }
+  }, [isSuccess, receipt, setReceiptData]);
 
   // Prevent body scroll when drawer is open
   useEffect(() => {
@@ -106,7 +121,7 @@ export default function TransactionDrawer({
 
             {isSuccess && (
               <div className="flex flex-col items-center gap-4">
-                <div className="flex items-center gap-2 text-green-500">
+                <div className="flex items-center gap-2 text-brand-green">
                   <svg
                     className="w-5 h-5"
                     fill="none"
