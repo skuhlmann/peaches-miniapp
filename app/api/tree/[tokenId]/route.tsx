@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { ImageResponse } from "next/og";
 import { NextRequest } from "next/server";
 import { SEQUENCE_ENDPOINT, TREE_NFT_CONTRACT_ADDRESS } from "@/lib/constants";
@@ -6,10 +7,10 @@ import { SequenceIndexer } from "@0xsequence/indexer";
 export const dynamic = "force-dynamic";
 
 const size = {
-  // width: 600,
-  // height: 400,
+  //   width: 600,
+  //   height: 400,
   width: 1200,
-  height: 630,
+  height: 800,
 };
 
 export async function GET(
@@ -164,7 +165,7 @@ export async function GET(
                 alignItems: "center",
                 width: "100%",
                 color: "#419361",
-                fontSize: "30px",
+                fontSize: "25px",
                 gap: "10px",
               }}
             >
@@ -179,10 +180,11 @@ export async function GET(
                   height: "35px",
                 }}
               />
+              <div>Boxes</div>
             </div>
           </div>
           <div
-            style={{ display: "flex", flexDirection: "column", gap: "30px" }}
+            style={{ display: "flex", flexDirection: "column", gap: "40px" }}
           >
             <img
               src={logo}
@@ -194,28 +196,14 @@ export async function GET(
 
             <div
               style={{
-                fontSize: "30px",
+                fontSize: "40px",
                 fontFamily: "'Helsinki'",
-                color: "#ffffff",
+                color: "#E46C1E",
                 textAlign: "left",
                 fontWeight: "700",
               }}
             >
               I&apos;m farming peaches!
-            </div>
-            <div
-              style={{
-                fontSize: "20px",
-                fontFamily: "'Work Sans'",
-                color: "#ffffff",
-                textAlign: "left",
-                maxWidth: "580px",
-              }}
-            >
-              My tree will produce two (2) peach boxes that each include a
-              farmer’s dozen (13) delicious, Palisade peaches. I can earn
-              additional peach boxes by nuturing it through through spring
-              blossom to late summer harvest.
             </div>
             <div
               style={{
