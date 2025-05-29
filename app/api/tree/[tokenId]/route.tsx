@@ -1,20 +1,28 @@
-/* eslint-disable @next/next/no-img-element */
 import { ImageResponse } from "next/og";
+import { NextRequest } from "next/server";
 import { SEQUENCE_ENDPOINT, TREE_NFT_CONTRACT_ADDRESS } from "@/lib/constants";
 import { SequenceIndexer } from "@0xsequence/indexer";
 
-export const runtime = "edge";
-export const contentType = "image/png";
-export const size = {
+export const dynamic = "force-dynamic";
+
+const size = {
+  // width: 600,
+  // height: 400,
   width: 1200,
-  height: 800,
+  height: 630,
 };
 
-export default async function Image({
-  params,
-}: {
-  params: { tokenId: string };
-}) {
+export async function GET(
+  request: NextRequest,
+  {
+    params,
+  }: {
+    params: Promise<{
+      tokenId: string;
+    }>;
+  }
+) {
+  const { tokenId } = await params;
   const baseUrl =
     process.env.NEXT_PUBLIC_URL || "https://miniapp.peachtycoon.com";
   const logo = `${baseUrl}/images/logo_wordmark.png`;
@@ -68,7 +76,7 @@ export default async function Image({
 
     const nft = await indexer.getTokenBalances({
       contractAddress: TREE_NFT_CONTRACT_ADDRESS,
-      tokenID: params.tokenId,
+      tokenID: tokenId,
       includeMetadata: true,
     });
 
@@ -77,6 +85,11 @@ export default async function Image({
       const imgPath = nft.balances[0].tokenMetadata.image
         .split("/ipfs/")[1]
         .split("/");
+
+      console.log(
+        "nft.balances[0].tokenMetadata.image",
+        nft.balances[0].tokenMetadata.image
+      );
 
       nftImage = `https://daohaus.mypinata.cloud/ipfs/bafybeic5dpqs7m4ivzllbxsp5xxr3n7gefz3aucieubmurznzuanmrkvji/${imgPath[1]}/${imgPath[2]}/${imgPath[3]}`;
     }
