@@ -2,7 +2,7 @@ import { useReadContract } from "wagmi";
 import treeAbi from "../lib/abis/TreeERC721.json";
 import { TREE_NFT_CONTRACT_ADDRESS } from "@/lib/constants";
 
-const supply = 150;
+const supply = 100;
 
 export default function RemainingTreeSupply() {
   const { data: totalSupply } = useReadContract({
