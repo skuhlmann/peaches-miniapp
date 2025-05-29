@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import { headers } from "next/headers";
 import Tree from "@/components/Tree";
 
 const appUrl = process.env.NEXT_PUBLIC_URL;
@@ -11,21 +10,21 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { tokenId } = await params;
 
+  const imageUrl = new URL(`${appUrl}/api/tree/${tokenId}`);
+
   const frame = {
     version: "next",
-    imageUrl: `${appUrl}/tree/${tokenId}/opengraph-image`,
+    imageUrl: imageUrl.toString(),
     button: {
       title: "PΞACH Tycoon",
       action: {
         type: "launch_frame",
         name: "PΞACH Tycoon",
         url: `${appUrl}`,
-        // iconImageUrl: `${appUrl}/images/home_peach.png`,
         splashImageUrl: `${appUrl}/splash_200.png`,
         splashBackgroundColor: "#0E1418",
       },
     },
-    postUrl: `${appUrl}/api/frame`,
   };
   return {
     title: "PΞACH Tycoon",
@@ -33,13 +32,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: "PΞACH Tycoon",
       description:
         "A seasonal NFT farming game where players can earn and/or sell boxes of real peaches.",
-      images: [`${appUrl}/tree/${tokenId}/opengraph-image`],
+      images: [{ url: imageUrl.toString() }],
     },
     other: {
       "fc:frame": JSON.stringify(frame),
-      "fc:frame:image": `${appUrl}/tree/${tokenId}/opengraph-image`,
+      "fc:frame:image": `${imageUrl.toString()}`,
       "fc:frame:button:1": "PΞACH Tycoon",
-      "fc:frame:post_url": `${appUrl}/api/frame`,
     },
   };
 }
