@@ -14,11 +14,7 @@ export default function RemainingTreeSupply() {
   const remainingSupply = totalSupply ? supply - Number(totalSupply) : 0;
 
   if (!remainingSupply) {
-    return (
-      <div className="text-center py-2">
-        <p className="text-2xl font-headline">{supply} Trees Available</p>
-      </div>
-    );
+    return;
   }
 
   return (
