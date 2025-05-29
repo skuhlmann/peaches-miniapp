@@ -6,7 +6,7 @@ const appUrl = process.env.NEXT_PUBLIC_URL;
 
 export async function generateMetadata(): Promise<Metadata> {
   const frame = {
-    version: "next",
+    version: "vNext",
     imageUrl: `${appUrl}/home.png`,
     button: {
       title: "PΞACH Tycoon",

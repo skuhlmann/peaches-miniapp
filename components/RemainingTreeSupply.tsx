@@ -2,7 +2,7 @@ import { useReadContract } from "wagmi";
 import treeAbi from "../lib/abis/TreeERC721.json";
 import { TREE_NFT_CONTRACT_ADDRESS } from "@/lib/constants";
 
-const supply = 150;
+const supply = 100;
 
 export default function RemainingTreeSupply() {
   const { data: totalSupply } = useReadContract({
@@ -14,11 +14,7 @@ export default function RemainingTreeSupply() {
   const remainingSupply = totalSupply ? supply - Number(totalSupply) : 0;
 
   if (!remainingSupply) {
-    return (
-      <div className="text-center py-2">
-        <p className="text-2xl font-headline">{supply} Trees Available</p>
-      </div>
-    );
+    return;
   }
 
   return (
