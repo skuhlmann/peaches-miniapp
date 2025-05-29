@@ -6,7 +6,7 @@ const appUrl = process.env.NEXT_PUBLIC_URL;
 
 export async function generateMetadata(): Promise<Metadata> {
   const frame = {
-    version: "vNext",
+    version: "next",
     imageUrl: `${appUrl}/home.png`,
     button: {
       title: "PΞACH Tycoon",
@@ -14,12 +14,10 @@ export async function generateMetadata(): Promise<Metadata> {
         type: "launch_frame",
         name: "PΞACH Tycoon",
         url: `${appUrl}`,
-        // iconImageUrl: `${appUrl}/images/home_peach.png`,
         splashImageUrl: `${appUrl}/splash_200.png`,
         splashBackgroundColor: "#0E1418",
       },
     },
-    postUrl: `${appUrl}/api/frame`,
   };
   return {
     title: "PΞACH Tycoon",
@@ -33,7 +31,6 @@ export async function generateMetadata(): Promise<Metadata> {
       "fc:frame": JSON.stringify(frame),
       "fc:frame:image": `${appUrl}/home.png`,
       "fc:frame:button:1": "PΞACH Tycoon",
-      "fc:frame:post_url": `${appUrl}/api/frame`,
     },
   };
 }
