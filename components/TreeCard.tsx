@@ -109,10 +109,6 @@ const TreeCard: React.FC<TreeCardProps> = ({ nft }) => {
         <div className="flex flex-col items-center gap-2">
           <h1 className="text-4xl font-headline text-white">0</h1>
           <div className="flex flex-col items-center">
-            <img src="/images/icon_water.png" alt="Water" className="w-8 h-8" />
-            <CheckCircleIcon className="w-4 h-4 text-black" />
-          </div>
-          <div className="flex flex-col items-center">
             <img
               src="/images/icon_fert.png"
               alt="Fertilizer"
@@ -152,16 +148,8 @@ const TreeCard: React.FC<TreeCardProps> = ({ nft }) => {
 
       <p className="text-sm text-brand-blue mb-2 text-center">
         Care for your trees to boost peach yield.{" "}
-        <span className="font-bold">Boost season is coming soon!</span>
       </p>
       <div className="grid grid-cols-2 gap-2 w-full opacity-25">
-        <button
-          disabled
-          className="flex items-center justify-center gap-2 bg-brand-gray/50 text-brand-blue px-4 py-2 rounded-full border border-brand-blue text-lg"
-        >
-          <img src="/images/icon_water.png" alt="Water" className="w-6 h-6" />
-          Water
-        </button>
         <button
           disabled
           className="flex items-center justify-center gap-2 bg-brand-gray/50 text-brand-orange px-4 py-2 rounded-full border border-brand-orange text-lg"
