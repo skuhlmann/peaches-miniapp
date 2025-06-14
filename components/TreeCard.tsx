@@ -5,6 +5,8 @@ import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import sdk from "@farcaster/frame-sdk";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { useTreePoints } from "@/hooks/use-tree-points";
+import TreeBoosts from "./TreeBoosts";
 
 interface TokenMetadata {
   name: string;
@@ -34,13 +36,17 @@ const TreeCard: React.FC<TreeCardProps> = ({ nft }) => {
   const { tokenID, tokenMetadata } = nft;
   const params = useParams();
 
+  const { totalPoints, fert, prune, sprays, peachBoxes } = useTreePoints({
+    tokenId: tokenID,
+  });
+
   const handleCastTree = useCallback(async () => {
     try {
       const baseUrl =
         process.env.NODE_ENV === "development"
           ? window.location.origin
           : process.env.NEXT_PUBLIC_URL || "https://miniapp.paeachtycoon.com";
-      const campaignUrl = `${baseUrl}/tree/${nft.tokenID}`;
+      const campaignUrl = `${baseUrl}/tree/${nft.tokenID}/yield/${peachBoxes}`;
 
       console.log("campaignUrl", campaignUrl);
 
@@ -69,11 +75,11 @@ const TreeCard: React.FC<TreeCardProps> = ({ nft }) => {
     } catch (error) {
       console.error("Error composing cast:", error);
     }
-  }, [nft, tokenMetadata]);
+  }, [nft, tokenMetadata, peachBoxes]);
 
   return (
     <div className="flex flex-col items-center bg-brand-gray p-4 rounded-lg">
-      <div className="flex flex-row w-full justify-start mb-2">
+      <div className="flex flex-row w-full justify-between mb-2">
         {params.tokenId ? (
           <p className="text-brand-white text-xs">{tokenMetadata?.name}</p>
         ) : (
@@ -84,6 +90,9 @@ const TreeCard: React.FC<TreeCardProps> = ({ nft }) => {
             {tokenMetadata?.name}
           </Link>
         )}
+        <h1 className="text-4xl font-headline text-white mr-4">
+          {totalPoints}
+        </h1>
       </div>
       <div className="flex flex-row w-full gap-4">
         {tokenMetadata?.image ? (
@@ -106,32 +115,39 @@ const TreeCard: React.FC<TreeCardProps> = ({ nft }) => {
             )}
           </div>
         )}
-        <div className="flex flex-col items-center gap-2">
-          <h1 className="text-4xl font-headline text-white">0</h1>
-          <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center gap-4">
+          <div className="flex flex-col items-center mt-2">
             <img
               src="/images/icon_fert.png"
               alt="Fertilizer"
               className="w-8 h-8"
             />
-            <CheckCircleIcon className="w-4 h-4 text-black" />
+            <CheckCircleIcon
+              className="w-4 h-4"
+              fill={fert ? `#E46C1E` : `#959695`}
+            />
           </div>
           <div className="flex flex-col items-center">
             <img src="/images/icon_prune.png" alt="Prune" className="w-8 h-8" />
-            <CheckCircleIcon className="w-4 h-4 text-black" />
+            <CheckCircleIcon
+              className="w-4 h-4"
+              fill={prune ? `#419361` : `#959695`}
+            />
           </div>
           <div className="flex flex-col items-center">
             <img src="/images/icon_spray.png" alt="Spray" className="w-8 h-8" />
-            <span className="text-xs text-white">0/2</span>
+            <span className="text-xs text-white">{sprays}/2</span>
           </div>
         </div>
       </div>
       <h2 className="text-lg font-semibold mb-1">
         {tokenMetadata?.description}
       </h2>
-      <div className="flex flex-row items-center justify-center gap-2 py-4 mb-1 w-full justify-start pl-1">
+      <div className="flex flex-row items-center justify-center gap-2 py-2 mb-1 w-full justify-start pl-1">
         <span className="text-brand-green text-base">Current yield:</span>
-        <span className="text-brand-green font-bold text-lg">2 X</span>
+        <span className="text-brand-green font-bold text-lg">
+          {peachBoxes} X
+        </span>
         <img
           src="/images/peach-avatar-trans.png"
           alt="Peach"
@@ -139,43 +155,14 @@ const TreeCard: React.FC<TreeCardProps> = ({ nft }) => {
         />
       </div>
 
+      <TreeBoosts tokenId={tokenID} />
+
       <button
         onClick={handleCastTree}
-        className="flex items-center justify-center gap-2 bg-brand-green text-white px-6 py-2 rounded-full mb-4 hover:bg-brand-orange/90 transition-colors"
+        className="flex items-center justify-center gap-2 bg-brand-green text-white px-6 py-2 rounded-full mt-10 mb-4 hover:bg-brand-orange/90 transition-colors"
       >
-        Share Me
+        Cast Me
       </button>
-
-      <p className="text-sm text-brand-blue mb-2 text-center">
-        Care for your trees to boost peach yield.{" "}
-      </p>
-      <div className="grid grid-cols-2 gap-2 w-full opacity-25">
-        <button
-          disabled
-          className="flex items-center justify-center gap-2 bg-brand-gray/50 text-brand-orange px-4 py-2 rounded-full border border-brand-orange text-lg"
-        >
-          <img
-            src="/images/icon_fert.png"
-            alt="Fertilize"
-            className="w-6 h-6"
-          />
-          Fertilize
-        </button>
-        <button
-          disabled
-          className="flex items-center justify-center gap-2 bg-brand-gray/50 text-brand-green px-4 py-2 rounded-full border border-brand-green text-lg"
-        >
-          <img src="/images/icon_prune.png" alt="Prune" className="w-6 h-6" />
-          Prune
-        </button>
-        <button
-          disabled
-          className="flex items-center justify-center gap-2 bg-brand-gray/50 text-brand-green px-4 py-2 rounded-full border border-brand-green text-lg"
-        >
-          <img src="/images/icon_spray.png" alt="Spray" className="w-6 h-6" />
-          Spray
-        </button>
-      </div>
     </div>
   );
 };

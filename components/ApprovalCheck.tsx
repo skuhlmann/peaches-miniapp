@@ -8,6 +8,9 @@ interface ApprovalCheckProps {
   amount: bigint;
   spender: `0x${string}`;
   tokenAddress: `0x${string}`;
+  buttonText?: string;
+  buttonColor?: string;
+  isDisabled: boolean;
   children: React.ReactNode;
 }
 
@@ -16,6 +19,9 @@ export default function ApprovalCheck({
   amount,
   spender,
   tokenAddress,
+  buttonText,
+  buttonColor,
+  isDisabled,
   children,
 }: ApprovalCheckProps) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -48,6 +54,8 @@ export default function ApprovalCheck({
     setIsDrawerOpen(true);
   };
 
+  const defaultText = buttonText || "Approve USDC";
+
   if (isLoading) {
     return <div className="text-sm text-gray-500">Checking approval...</div>;
   }
@@ -57,10 +65,12 @@ export default function ApprovalCheck({
       <>
         <button
           onClick={handleApprove}
-          disabled={isPending}
-          className="w-full py-3 rounded-full text-brand-black font-headline text-lg mt-auto bg-brand-orange hover:text-brand-green transition-colors"
+          disabled={isPending || isDisabled}
+          className={`w-full py-3 rounded-full text-brand-black font-headline text-lg mt-auto bg-${
+            buttonColor || "brand-orange"
+          } ${isDisabled && "bg-opacity-50"}`}
         >
-          {isPending ? "Approving..." : "Approve USDC"}
+          {isPending ? "Approving..." : defaultText}
         </button>
 
         <TransactionDrawer
@@ -80,7 +90,7 @@ export default function ApprovalCheck({
             <div className="flex flex-col items-center justify-between">
               <span className="font-medium">USDC Approval</span>
               <p className="text-sm text-gray-500 mt-2">
-                This allows the contract to spend your USDC tokens for minting.
+                This allows the contract to spend your USDC tokens for spending.
               </p>
             </div>
           </div>

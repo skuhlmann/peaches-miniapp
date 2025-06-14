@@ -5,6 +5,7 @@ interface BalanceCheckProps {
   address: `0x${string}`;
   price: bigint;
   tokenAddress: `0x${string}` | "native";
+  message?: string;
   children: React.ReactNode;
 }
 
@@ -12,6 +13,7 @@ export default function BalanceCheck({
   address,
   price,
   tokenAddress,
+  message,
   children,
 }: BalanceCheckProps) {
   const { data: nativeBalance, isLoading: isNativeLoading } = useBalance({
@@ -36,8 +38,8 @@ export default function BalanceCheck({
 
   if (!balance || balance < price) {
     return (
-      <div className="text-sm text-brand-red font-medium">
-        Insufficient funds
+      <div className="text-sm text-brand-red font-medium w-full text-center">
+        {message || "Insufficient funds"}
       </div>
     );
   }
