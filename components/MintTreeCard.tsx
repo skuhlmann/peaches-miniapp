@@ -1,9 +1,9 @@
 "use client";
 
 /* eslint-disable @next/next/no-img-element */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TransactionDrawer from "./TransactionDrawer";
-import { useWriteContract, useAccount } from "wagmi";
+import { useWriteContract, useAccount, useSwitchChain } from "wagmi";
 import TreeERC721 from "../lib/abis/TreeERC721.json";
 import BalanceCheck from "./BalanceCheck";
 import ApprovalCheck from "./ApprovalCheck";
@@ -45,6 +45,8 @@ export default function MintTreeCard({
   const [mintedTokenId, setMintedTokenId] = useState<number | undefined>();
   const [mintedCritterId, setMintedCritterId] = useState<number | undefined>();
 
+  const { switchChain } = useSwitchChain();
+
   const router = useRouter();
   const { isConnected, chainId, address } = useAccount();
   const { refetch: refetchAccountTrees } = useAccountTrees({
@@ -73,8 +75,6 @@ export default function MintTreeCard({
   const handleMint = () => {
     const critterId = getCritterId();
     setMintedCritterId(critterId);
-
-    console.log("critterId", critterId);
 
     if (currency === "ETH") {
       const price = hasDiscount
@@ -108,6 +108,13 @@ export default function MintTreeCard({
   const invalidConnection = !isConnected || TARGET_CHAIN_ID !== chainId;
   const isDisabled = isPending || invalidConnection;
 
+  useEffect(() => {
+    if (isConnected && invalidConnection) {
+      console.log("switchChain", TARGET_CHAIN_ID);
+      switchChain({ chainId: TARGET_CHAIN_ID });
+    }
+  }, [invalidConnection, isConnected, switchChain]);
+
   const getPrice = () => {
     const basePrice = currency === "ETH" ? nativeMintPrice : erc20MintPrice;
     return hasDiscount
@@ -121,7 +128,6 @@ export default function MintTreeCard({
       router.push(`/tree/${mintedTokenId}`);
     }
   };
-  console.log("mintedTokenId", mintedTokenId);
 
   const renderButton = () => {
     const button = (
@@ -149,6 +155,7 @@ export default function MintTreeCard({
           amount={getPrice()}
           spender={TREE_NFT_CONTRACT_ADDRESS}
           tokenAddress={TREE_ERC20_PAYMENT_TOKEN}
+          isDisabled={isDisabled}
         >
           {button}
         </ApprovalCheck>

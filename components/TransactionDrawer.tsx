@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction, useEffect } from "react";
-import { fromHex } from "viem";
 import { useWaitForTransactionReceipt } from "wagmi";
 
 interface TransactionDrawerProps {
@@ -35,8 +34,6 @@ export default function TransactionDrawer({
     hash,
   });
 
-  console.log("receipt", receipt);
-
   useEffect(() => {
     if (isSuccess && onSuccess) {
       onSuccess();
@@ -46,8 +43,6 @@ export default function TransactionDrawer({
   useEffect(() => {
     if (isSuccess && receipt && setReceiptData) {
       const tokenId = receipt.logs[0].topics[3];
-
-      console.log("tokenId", tokenId);
 
       if (tokenId) {
         setReceiptData(parseInt(tokenId));

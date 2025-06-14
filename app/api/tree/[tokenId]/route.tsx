@@ -7,10 +7,8 @@ import { SequenceIndexer } from "@0xsequence/indexer";
 export const dynamic = "force-dynamic";
 
 const size = {
-  //   width: 600,
-  //   height: 400,
-  width: 1200,
-  height: 800,
+  width: 600,
+  height: 400,
 };
 
 export async function GET(
@@ -24,6 +22,9 @@ export async function GET(
   }
 ) {
   const { tokenId } = await params;
+  const searchParams = request.nextUrl.searchParams;
+  const amount = searchParams.get("amount");
+
   const baseUrl =
     process.env.NEXT_PUBLIC_URL || "https://miniapp.peachtycoon.com";
   const logo = `${baseUrl}/images/logo_wordmark.png`;
@@ -67,7 +68,7 @@ export async function GET(
   let nftImage:
     | string
     | undefined = `https://daohaus.mypinata.cloud/ipfs/bafybeic5dpqs7m4ivzllbxsp5xxr3n7gefz3aucieubmurznzuanmrkvji/Winter/0/0.png`;
-  const currentYield = "2";
+  const currentYield = amount;
 
   try {
     const indexer = new SequenceIndexer(
@@ -125,8 +126,9 @@ export async function GET(
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          paddingTop: "40px",
-          paddingBottom: "40px",
+          justifyContent: "center",
+          paddingTop: "20px",
+          paddingBottom: "20px",
           color: "#ffffff", // Changed default text color
         }}
       >
@@ -136,9 +138,9 @@ export async function GET(
             flexDirection: "row",
             justifyContent: "flex-start",
             alignItems: "flex-start",
-            gap: "50px",
+            gap: "10px",
             width: "100%",
-            padding: "0px 30px 0px 30px",
+            padding: "0px 20px 0px 20px",
           }}
         >
           <div
@@ -153,57 +155,45 @@ export async function GET(
               src={nftImage}
               alt="Peach Tycoon"
               style={{
-                height: "675px",
-                marginBottom: "20px",
+                height: "337px",
+                marginBottom: "10px",
               }}
             />
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-                width: "100%",
-                color: "#419361",
-                fontSize: "25px",
-                gap: "10px",
-              }}
-            >
-              <div>My Current Yield: </div>
-              <div>{currentYield}</div>
-              <div>X</div>
-
-              <img
-                src={peachIcon}
-                alt="Peach"
-                style={{
-                  height: "35px",
-                }}
-              />
-              <div>Boxes</div>
-            </div>
           </div>
           <div
-            style={{ display: "flex", flexDirection: "column", gap: "40px" }}
+            style={{ display: "flex", flexDirection: "column", gap: "20px" }}
           >
             <img
               src={logo}
               alt="Peach Tycoon"
               style={{
-                height: "64px",
+                height: "32px",
               }}
             />
 
             <div
               style={{
-                fontSize: "40px",
-                fontFamily: "'Helsinki'",
-                color: "#E46C1E",
-                textAlign: "left",
-                fontWeight: "700",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "flex-start",
+                alignItems: "center",
+                width: "100%",
+                color: "#419361",
+                fontSize: "26px",
+                gap: "5px",
               }}
             >
-              I&apos;m farming peaches!
+              <div>I&apos;ve Farmed</div>
+              <div>{currentYield}</div>
+
+              <img
+                src={peachIcon}
+                alt="Peach"
+                style={{
+                  height: "22px",
+                }}
+              />
+              <div>Boxes!</div>
             </div>
             <div
               style={{
@@ -213,15 +203,15 @@ export async function GET(
                 alignItems: "flex-start",
 
                 width: "100%",
-                fontSize: "60px",
+                fontSize: "30px",
                 textTransform: "uppercase",
-                marginTop: "15px",
+                marginTop: "7px",
               }}
             >
-              <div style={{ marginBottom: "10px" }}>YOU BUY TREE.</div>
-              <div style={{ marginBottom: "10px" }}>TREE GROWS PEACH.</div>
-              <div style={{ marginBottom: "1px" }}>YOU EAT* PEACH.</div>
-              <div style={{ fontSize: "12px" }}>
+              <div style={{ marginBottom: "5px" }}>YOU BUY TREE.</div>
+              <div style={{ marginBottom: "5px" }}>TREE GROWS PEACH.</div>
+              <div style={{ marginBottom: "0px" }}>YOU EAT* PEACH.</div>
+              <div style={{ fontSize: "6px" }}>
                 *or sell to the marketplace for others to enjoy.
               </div>
             </div>
@@ -232,21 +222,21 @@ export async function GET(
                 justifyContent: "space-between",
                 alignItems: "center",
                 width: "100%",
-                gap: "5px",
-                marginTop: "15px",
+                gap: "2px",
+                marginTop: "7px",
               }}
             >
               <img
                 src={stepOne}
                 alt="tree"
                 style={{
-                  height: "150px",
+                  height: "75px",
                 }}
               />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="48"
-                height="48"
+                width="24"
+                height="24"
                 fill="#F5253D"
                 viewBox="0 0 16 16"
               >
@@ -259,13 +249,13 @@ export async function GET(
                 src={stepTwo}
                 alt="peach"
                 style={{
-                  height: "150px",
+                  height: "75px",
                 }}
               />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="48"
-                height="48"
+                width="24"
+                height="24"
                 fill="#F5253D"
                 viewBox="0 0 16 16"
               >
@@ -278,7 +268,7 @@ export async function GET(
                 src={stepThree}
                 alt="peachbox"
                 style={{
-                  height: "150px",
+                  height: "75px",
                 }}
               />
             </div>

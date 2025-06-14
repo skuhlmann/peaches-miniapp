@@ -11,8 +11,6 @@ export default function Orchard() {
   const { accountNfts } = useAccountTrees({ accountAddress: address || "" });
   const [activeTab, setActiveTab] = useState<"buy" | "trees">("buy");
 
-  console.log("address", address);
-
   useEffect(() => {
     if (accountNfts && accountNfts.length > 0) {
       setActiveTab("trees");
