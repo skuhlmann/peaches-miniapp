@@ -37,8 +37,8 @@ export default function About() {
             <div className="flex-1">
               <div className="flex items-center gap-4 mb-4">
                 <h2 className="text-2xl font-bold">1.</h2>
-                <span className="bg-brand-green text-brand-black px-3 py-1 rounded-none text-sm font-semibold">
-                  • Tree Sales Open •
+                <span className="bg-brand-red text-brand-black px-3 py-1 rounded-none text-sm font-semibold">
+                  • Tree Sales Closed •
                 </span>
               </div>
               <h4 className="text-5xl font-bold mb-4 font-heading">
@@ -90,8 +90,8 @@ export default function About() {
             <div className="flex-1">
               <div className="flex items-center gap-4 mb-4">
                 <h2 className="text-2xl font-bold">2.</h2>
-                <span className="bg-brand-green text-brand-black px-3 py-1 rounded-none text-sm font-semibold">
-                  • Boost Sales Open •
+                <span className="bg-brand-red text-brand-black px-3 py-1 rounded-none text-sm font-semibold">
+                  • Boost Sales Closed •
                 </span>
               </div>
               <h4 className="text-5xl font-bold mb-4 font-heading">
