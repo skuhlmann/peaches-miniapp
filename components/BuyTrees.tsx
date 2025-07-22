@@ -1,30 +1,39 @@
-import RemainingTreeSupply from "./RemainingTreeSupply";
-import { TREE_NFT_CONTRACT_ADDRESS_2024, TREE_NFT_DATA } from "@/lib/constants";
-import MintTreeCard from "./MintTreeCard";
+// import RemainingTreeSupply from "./RemainingTreeSupply";
+// import { TREE_NFT_CONTRACT_ADDRESS_2024, TREE_NFT_DATA } from "@/lib/constants";
+// import MintTreeCard from "./MintTreeCard";
 import { useAccount, useReadContract } from "wagmi";
-import treeAbi from "../lib/abis/TreeERC721.json";
-import { useState } from "react";
+// import treeAbi from "../lib/abis/TreeERC721.json";
+// import { useState } from "react";
 
 export default function BuyTrees() {
   const { address } = useAccount();
-  const [selectedTrunk, setSelectedTrunk] = useState(0);
+  // const [selectedTrunk, setSelectedTrunk] = useState(0);
 
-  const { data: balance } = useReadContract({
-    abi: treeAbi,
-    functionName: "balanceOf",
-    address: TREE_NFT_CONTRACT_ADDRESS_2024,
-    args: [address || "0x0000000000000000000000000000000000000000"],
-  });
+  // const { data: balance } = useReadContract({
+  //   abi: treeAbi,
+  //   functionName: "balanceOf",
+  //   address: TREE_NFT_CONTRACT_ADDRESS_2024,
+  //   args: [address || "0x0000000000000000000000000000000000000000"],
+  // });
 
-  const hasDiscount = balance ? Number(balance) > 0 : false;
+  // const hasDiscount = balance ? Number(balance) > 0 : false;
 
   return (
     <div className="container">
-      <RemainingTreeSupply />
-      <p className="text-sm w-full text-center text-brand-blue mb-3">
+      {/* <RemainingTreeSupply /> */}
+      <div className="text-center">
+        <p className="text-xl font-headline">
+          Tree Sales Have Closed for the 2025 Season
+        </p>
+        <p className="text-xl font-body mt-3">
+          The Peach Market will open soon where you can buy individual peach
+          boxes directly from farmers.
+        </p>
+      </div>
+      {/* <p className="text-sm w-full text-center text-brand-blue mb-3">
         Pick a Trunk
-      </p>
-      <div className="flex justify-center gap-4 mb-2">
+      </p> */}
+      {/* <div className="flex justify-center gap-4 mb-2">
         {TREE_NFT_DATA.map((tree, index) => (
           <label
             key={tree.value}
@@ -41,13 +50,13 @@ export default function BuyTrees() {
             {tree.name}
           </label>
         ))}
-      </div>
-      <div className="flex justify-center">
+      </div> */}
+      {/* <div className="flex justify-center">
         <MintTreeCard
           tree={TREE_NFT_DATA[selectedTrunk]}
           hasDiscount={hasDiscount}
         />
-      </div>
+      </div> */}
     </div>
   );
 }

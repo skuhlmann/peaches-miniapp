@@ -1,12 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
-import { truncateAddress } from "@/lib/helpers";
+// import { truncateAddress } from "@/lib/helpers";
 import React, { useCallback } from "react";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import sdk from "@farcaster/frame-sdk";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useTreePoints } from "@/hooks/use-tree-points";
-import TreeBoosts from "./TreeBoosts";
+// import TreeBoosts from "./TreeBoosts";
 
 interface TokenMetadata {
   name: string;
@@ -155,7 +155,7 @@ const TreeCard: React.FC<TreeCardProps> = ({ nft }) => {
         />
       </div>
 
-      <TreeBoosts tokenId={tokenID} />
+      {/* <TreeBoosts tokenId={tokenID} /> */}
 
       <button
         onClick={handleCastTree}
