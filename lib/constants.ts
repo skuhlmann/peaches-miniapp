@@ -49,6 +49,9 @@ export const SPRAY_CONTRACT_ADDRESS =
 // export const SPRAY_CONTRACT_ADDRESS =
 // "0x23c5188a524bd8C387fDCA22de9aA6451F227Ce1";
 
+export const PEACH_NFT_CONTRACT_ADDRESS =
+  "0x212161a7ad0AC779cCc569A9C305CBc53ad3960d";
+
 export const SPRAYS_PER_TOKEN = 2;
 
 export type NftTreeMeta = { name: string; img: string; value: number };
