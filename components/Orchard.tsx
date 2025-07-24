@@ -5,19 +5,27 @@ import BuyTrees from "./BuyTrees";
 import { useAccountTrees } from "@/hooks/use-account-trees";
 import TreeCard from "./TreeCard";
 import { useState, useEffect } from "react";
+import { useAccountPeaches } from "@/hooks/use-account-peaches";
+import PeachCard from "./PeachCard";
 
 export default function Orchard() {
   const { isConnected, address } = useAccount();
   const { accountNfts } = useAccountTrees({ accountAddress: address || "" });
-  const [activeTab, setActiveTab] = useState<"buy" | "trees">("buy");
+  const { accountNfts: peachNfts } = useAccountPeaches({
+    accountAddress: address || "",
+  });
+
+  const [activeTab, setActiveTab] = useState<"buy" | "trees" | "peaches">(
+    "buy"
+  );
 
   useEffect(() => {
-    if (accountNfts && accountNfts.length > 0) {
-      setActiveTab("trees");
+    if (peachNfts && peachNfts.length > 0) {
+      setActiveTab("peaches");
     } else {
       setActiveTab("buy");
     }
-  }, [accountNfts]);
+  }, [peachNfts]);
 
   useEffect(() => {
     const handleSwitchToTreesTab = () => {
@@ -46,8 +54,19 @@ export default function Orchard() {
                 : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
             } whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm`}
           >
-            Buy Trees
+            Buy Peaches
           </button>
+          <button
+            onClick={() => setActiveTab("peaches")}
+            className={`${
+              activeTab === "peaches"
+                ? "border-brand-orange text-brand-orange"
+                : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+            } whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm`}
+          >
+            Your Peaches
+          </button>
+
           <button
             onClick={() => setActiveTab("trees")}
             className={`${
@@ -62,9 +81,9 @@ export default function Orchard() {
       </div>
 
       <div className="mt-4">
-        {activeTab === "buy" ? (
-          <BuyTrees />
-        ) : (
+        {activeTab === "buy" && <BuyTrees />}
+
+        {activeTab === "trees" && (
           <div>
             {accountNfts && accountNfts.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -74,7 +93,24 @@ export default function Orchard() {
               </div>
             ) : (
               <p className="text-sm text-brand-orange">
-                Nice Dirt!! Put some trees in it.
+                Tree sales have closed for the season. You can buy individual
+                peach boxes from farmers.
+              </p>
+            )}
+          </div>
+        )}
+
+        {activeTab === "peaches" && (
+          <div>
+            {peachNfts && peachNfts.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {peachNfts.map((nft) => (
+                  <PeachCard key={nft.tokenID} nft={nft} />
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-brand-orange">
+                You&apos;re short on fuzz.
               </p>
             )}
           </div>

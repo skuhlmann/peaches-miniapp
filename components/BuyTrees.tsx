@@ -1,7 +1,7 @@
 // import RemainingTreeSupply from "./RemainingTreeSupply";
 // import { TREE_NFT_CONTRACT_ADDRESS_2024, TREE_NFT_DATA } from "@/lib/constants";
 // import MintTreeCard from "./MintTreeCard";
-import { useAccount, useReadContract } from "wagmi";
+import { useAccount } from "wagmi";
 // import treeAbi from "../lib/abis/TreeERC721.json";
 // import { useState } from "react";
 
@@ -29,6 +29,16 @@ export default function BuyTrees() {
           The Peach Market will open soon where you can buy individual peach
           boxes directly from farmers.
         </p>
+
+        <div className="mt-12">
+          <a
+            href="https://peachtycoon.com/#/market"
+            target="_blank"
+            className="my-6 px-12 py-6 text-2xl font-headline text-brand-red bg-brand-black border-2 border-brand-orange rounded-full hover:bg-orange-500/10 transition-colors duration-200"
+          >
+            PEACH MARKET
+          </a>
+        </div>
       </div>
       {/* <p className="text-sm w-full text-center text-brand-blue mb-3">
         Pick a Trunk
