@@ -38,7 +38,7 @@ const PeachCard: React.FC<PeachCardProps> = ({ nft }) => {
 
     await sdk.actions.composeCast({
       text: "Soon I'll be eating fresh Palisade Peaches!",
-      embeds: [`https://miniapp.paeachtycoon.com/api/peach/${tokenID}`],
+      embeds: [`https://miniapp.paeachtycoon.com/peach/${tokenID}`],
     });
   }, [tokenID]);
 
